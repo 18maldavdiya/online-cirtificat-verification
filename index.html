@@ -1,74 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CertiVerify</title>
+
+    <title>Online Certificate Verification System</title>
+
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
 
-    <nav>
-        <div class="logo">CertiVerify</div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Verify</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Admin Login</a></li>
-        </ul>
-    </nav>
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+
+            <h2>CertiVerify</h2>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li><a href="#">Home</a></li>
+
+                <li><a href="#">Features</a></li>
+
+                <li><a href="#">Verify</a></li>
+
+                <li><a href="#">Contact</a></li>
+
+                <li><a href="#">Login</a></li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>Online Certificate Verification System</h1>
+
+        <!-- Left Side -->
+
+        <div class="hero-text">
+
+            <h1>
+                Online Certificate Verification System
+            </h1>
+
             <p>
-                Verify certificates instantly using Certificate ID and QR Code.
-                Secure, Fast and Reliable Verification Platform.
+
+                Verify, Issue and Manage Digital Certificates
+                securely using QR Codes and Unique Certificate IDs.
+
             </p>
 
-            <div class="buttons">
-                <a href="#" class="btn">Verify Certificate</a>
-                <a href="#" class="btn secondary">Admin Login</a>
-            </div>
-        </div>
-    </section>
+            <div class="hero-btn">
 
-    <section class="features">
-        <h2>Features</h2>
+                <a href="#" class="btn1">
+                    Verify Certificate
+                </a>
 
-        <div class="feature-container">
+                <a href="#" class="btn2">
+                    Admin Login
+                </a>
 
-            <div class="card">
-                <h3>QR Verification</h3>
-                <p>Scan QR codes to instantly verify certificates.</p>
-            </div>
-
-            <div class="card">
-                <h3>Unique Certificate ID</h3>
-                <p>Each certificate contains a unique identification number.</p>
-            </div>
-
-            <div class="card">
-                <h3>Secure Records</h3>
-                <p>Certificate information is stored securely.</p>
             </div>
 
         </div>
-    </section>
 
-    <section class="how-it-works">
-        <h2>How It Works</h2>
+        <!-- Right Side -->
 
-        <div class="steps">
-            <div class="step">1. Issue Certificate</div>
-            <div class="step">2. Generate QR Code</div>
-            <div class="step">3. Verify Online</div>
+        <div class="hero-image">
+
+            <img src="img1.png" alt="Certificate">
+
         </div>
-    </section>
 
-    <footer>
-        <p>© 2026 CertiVerify. All Rights Reserved.</p>
-    </footer>
+    </section>
+    <!-- ================= STATISTICS ================= -->
+
+<section class="stats">
+
+    <div class="stat-box">
+        <h2>10K+</h2>
+        <p>Certificates Issued</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>500+</h2>
+        <p>Organizations</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>1M+</h2>
+        <p>Certificates Verified</p>
+    </div>
+
+    <div class="stat-box">
+        <h2>99.9%</h2>
+        <p>Verification Accuracy</p>
+    </div>
+
+</section>
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+    <h2>Our Features</h2>
+
+    <p class="feature-text">
+        Everything you need to issue, manage and verify certificates securely.
+    </p>
+
+    <div class="feature-container">
+
+        <div class="card">
+
+            <div class="icon">🔒</div>
+
+            <h3>Secure Verification</h3>
+
+            <p>
+                Verify certificates securely using a unique certificate ID.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">📱</div>
+
+            <h3>QR Code Scan</h3>
+
+            <p>
+                Scan QR codes for instant certificate verification.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">📄</div>
+
+            <h3>Digital Certificates</h3>
+
+            <p>
+                Generate digital certificates in PDF format.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">👥</div>
+
+            <h3>Role Based Login</h3>
+
+            <p>
+                Separate dashboards for Admin, Organization and Student.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">☁</div>
+
+            <h3>Cloud Storage</h3>
+
+            <p>
+                Store certificates securely in the database.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="icon">⚡</div>
+
+            <h3>Fast Verification</h3>
+
+            <p>
+                Verify certificates in just a few seconds.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="how">
+
+    <h2>How It Works</h2>
+
+    <p class="sub-heading">
+        Verify any certificate in just four easy steps.
+    </p>
+
+    <div class="how-container">
+
+        <div class="how-card">
+            <div class="number">1</div>
+            <h3>Issue Certificate</h3>
+            <p>
+                Organization creates a digital certificate for the student.
+            </p>
+        </div>
+
+        <div class="how-card">
+            <div class="number">2</div>
+            <h3>Generate QR Code</h3>
+            <p>
+                A unique Certificate ID and QR Code are generated.
+            </p>
+        </div>
+
+        <div class="how-card">
+            <div class="number">3</div>
+            <h3>Verify Certificate</h3>
+            <p>
+                Anyone can verify using QR Code or Certificate ID.
+            </p>
+        </div>
+
+        <div class="how-card">
+            <div class="number">4</div>
+            <h3>View Details</h3>
+            <p>
+                The system displays the certificate information instantly.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= WHY CHOOSE US ================= -->
+
+<section class="why">
+
+    <div class="why-left">
+
+        <h2>Why Choose CertiVerify?</h2>
+
+        <p>
+
+            Our platform makes certificate verification
+            simple, secure and reliable.
+
+        </p>
+
+        <ul>
+
+            <li>✔ QR Code Verification</li>
+
+            <li>✔ Unique Certificate ID</li>
+
+            <li>✔ Secure Database</li>
+
+            <li>✔ Fast Verification</li>
+
+            <li>✔ Separate Dashboards</li>
+
+            <li>✔ Easy Certificate Download</li>
+
+        </ul>
+
+    </div>
+
+    <div class="why-right">
+
+        <img src="images/certificate.png" alt="Why Choose Us">
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= DASHBOARD PREVIEW ================= -->
+
+<section class="dashboard">
+
+    <h2>Dashboard Preview</h2>
+
+    <p class="sub-heading">
+
+        Different dashboards for different users.
+
+    </p>
+
+    <div class="dashboard-container">
+
+        <div class="dashboard-card">
+
+            <img src="images/admin-dashboard.png" alt="Admin">
+
+            <h3>Admin Dashboard</h3>
+
+            <p>
+
+                Manage users, certificates and organizations.
+
+            </p>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <img src="images/org-dashboard.png" alt="Organization">
+
+            <h3>Organization Dashboard</h3>
+
+            <p>
+
+                Issue and manage certificates.
+
+            </p>
+
+        </div>
+
+        <div class="dashboard-card">
+
+            <img src="images/student-dashboard.png" alt="Student">
+
+            <h3>Student Dashboard</h3>
+
+            <p>
+
+                View and download certificates.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
 </body>
+
 </html>
