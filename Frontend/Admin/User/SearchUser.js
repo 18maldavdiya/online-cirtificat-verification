@@ -1,28 +1,22 @@
 // ======================================
-// Search User
+// Search User (ID + Name)
 // ======================================
 
 const searchInput = document.getElementById("searchUser");
 
 searchInput.addEventListener("keyup", function () {
 
-    const searchValue = searchInput.value.toLowerCase();
+    const filter = searchInput.value.toLowerCase();
 
     const rows = userTable.getElementsByTagName("tr");
 
     for (let i = 0; i < rows.length; i++) {
 
+        const userId = rows[i].cells[0].innerText.toLowerCase();
+
         const name = rows[i].cells[1].innerText.toLowerCase();
 
-        const email = rows[i].cells[2].innerText.toLowerCase();
-
-        const role = rows[i].cells[3].innerText.toLowerCase();
-
-        if (
-            name.includes(searchValue) ||
-            email.includes(searchValue) ||
-            role.includes(searchValue)
-        ) {
+        if (userId.includes(filter) || name.includes(filter)) {
 
             rows[i].style.display = "";
 

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Organization</title>
+
+    <link rel="stylesheet" href="organization.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h2>CertiVerify</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="User/users.html">
+                    <i class="fa-solid fa-users"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="organizations.html">
+                    <i class="fa-solid fa-building"></i>
+                    Organizations
+                </a>
+            </li>
+
+            <li>
+                <a href="certificates.html">
+                    <i class="fa-solid fa-certificate"></i>
+                    Certificates
+                </a>
+            </li>
+
+            <li>
+                <a href="verificationLogs.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Verification Logs
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="../Login/Login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="main">
+
+        <!-- Top Navbar -->
+
+        <div class="topbar">
+
+            <div class="search">
+
+                <input type="text" placeholder="Search Organization...">
+
+            </div>
+
+            <div class="admin-profile">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Admin</span>
+
+            </div>
+
+        </div>
+        <div class="content">
+
+            <!-- Page Header -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Organization Management</h1>
+
+                    <p>
+                        Manage all registered organizations in the system.
+                    </p>
+
+                </div>
+
+                <button class="add-organization">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Add Organization
+
+                </button>
+
+            </div>
+
+
+            <!-- Statistics Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    <div>
+
+                        <h2>25</h2>
+
+                        <p>Total Organizations</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <div>
+
+                        <h2>20</h2>
+
+                        <p>Verified Organizations</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <div>
+
+                        <h2>3</h2>
+
+                        <p>Pending Approval</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-ban"></i>
+
+                    <div>
+
+                        <h2>2</h2>
+
+                        <p>Inactive Organizations</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search Section -->
+
+            <div class="user-toolbar">
+
+                <input type="text" id="searchUser" placeholder="Search Organization...">
+
+                <select id="roleFilter">
+
+                    <option>All Types</option>
+
+                    <option>University</option>
+
+                    <option>College</option>
+
+                    <option>Institute</option>
+
+                    <option>Training Center</option>
+
+
+                </select>
+
+
+                <select id="statusFilter">
+
+                    <option>All Status</option>
+
+                    <option>Verified</option>
+
+                    <option>Inactive</option>
+
+                    <option>Pending</option>
+
+                </select>
+
+            </div>
+            <!-- ==========================
+        USERS TABLE
+========================== -->
+
+            <div class="table-container">
+
+                <div class="table-header">
+
+                    <h2>Registered Organizations</h2>
+
+                    <span>Total : 10 Organizations</span>
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Organization ID</th>
+
+                            <th>Organization Name</th>
+
+                            <th>Email</th>
+
+                            <th>Phone</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="organizationTable">
+
+                    <tr>
+                        <td>ORG001</td>
+                        <td>SAGE University</td>
+                        <td>admin@sage.edu</td>
+                        <td>9876543210</td>
+                        <td><span class="status verified">Verified</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG002</td>
+                        <td>ABC Institute</td>
+                        <td>contact@abcinstitute.com</td>
+                        <td>9876543211</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG003</td>
+                        <td>Tech Academy</td>
+                        <td>info@techacademy.com</td>
+                        <td>9876543212</td>
+                        <td><span class="status verified">Verified</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG004</td>
+                        <td>Bright Future College</td>
+                        <td>admin@brightfuture.edu</td>
+                        <td>9876543213</td>
+                        <td><span class="status inactive">Inactive</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG005</td>
+                        <td>Global Skill Center</td>
+                        <td>support@globalskill.com</td>
+                        <td>9876543214</td>
+                        <td><span class="status verified">Verified</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG006</td>
+                        <td>National Training Institute</td>
+                        <td>contact@nti.org</td>
+                        <td>9876543215</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG007</td>
+                        <td>Future Vision Academy</td>
+                        <td>info@futurevision.edu</td>
+                        <td>9876543216</td>
+                        <td><span class="status verified">Verified</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG008</td>
+                        <td>SkillUp Institute</td>
+                        <td>admin@skillup.org</td>
+                        <td>9876543217</td>
+                        <td><span class="status inactive">Inactive</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG009</td>
+                        <td>Digital Learning Hub</td>
+                        <td>hello@dlhub.com</td>
+                        <td>9876543218</td>
+                        <td><span class="status verified">Verified</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ORG010</td>
+                        <td>NextGen Education</td>
+                        <td>contact@nextgen.edu</td>
+                        <td>9876543219</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                            <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+
+            </div>
+            <!-- ==========================
+        ADD USER MODAL
+========================== -->
+
+            <div class="modal" id="organizationModal">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2 id="modalTitle">Add Organization</h2>
+
+                        <span class="close">&times;</span>
+
+                    </div>
+
+                    <form id="organizationForm">
+
+                        <label>Organization Name</label>
+                        <input type="text" id="organizationName" placeholder="Enter Organization Name">
+
+                        <label>Email</label>
+                        <input type="email" id="organizationEmail" placeholder="Enter Email">
+
+                        <label>Phone Number</label>
+                        <input type="text" id="organizationPhone" placeholder="Enter Phone Number">
+
+                        <label>Address</label>
+                        <input type="text" id="organizationAddress" placeholder="Enter Address">
+
+                        <label>Organization Type</label>
+                        <select id="organizationType">
+                            <option>University</option>
+                            <option>College</option>
+                            <option>Institute</option>
+                            <option>Training Center</option>
+                        </select>
+
+                        <label>Status</label>
+                        <select id="organizationStatus">
+                            <option>Verified</option>
+                            <option>Pending</option>
+                            <option>Inactive</option>
+                        </select>
+
+                        <div class="modal-buttons">
+
+                            <button type="submit" class="save-btn">
+
+                                Save Organization
+
+                            </button>
+
+                            <button type="button" class="cancel-btn">
+
+                                Cancel
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+            <!-- ======================================
+        VIEW USER MODAL
+====================================== -->
+
+            <div class="modal" id="viewModal">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2>User Details</h2>
+
+                        <span class="close-view">&times;</span>
+
+                    </div>
+
+                    <div class="view-details">
+
+                        <p><strong>User ID :</strong> <span id="viewId"></span></p>
+
+                        <p><strong>Name :</strong> <span id="viewName"></span></p>
+
+                        <p><strong>Email :</strong> <span id="viewEmail"></span></p>
+
+                        <p><strong>Role :</strong> <span id="viewRole"></span></p>
+
+                        <p><strong>Status :</strong> <span id="viewStatus"></span></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <script src="organization.js"></script>
+
+            <script src="DeleteOrganization.js"></script>
+
+            <script src="ViewOrganization.js"></script>
+
+            <script src="DeleteUser.js"></script>
+
+            <script src="ViewUser.js"></script>
+
+            <script src="SearchUser.js"></script>
+
+            <script src="FilterUser.js"></script>
+
+</body>
+
+</html>
+</body>
+
+</html>

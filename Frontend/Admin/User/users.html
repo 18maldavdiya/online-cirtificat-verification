@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Dashboard</title>
+    <title>User</title>
 
     <link rel="stylesheet" href="user.css">
 
@@ -38,7 +38,7 @@
             </li>
 
             <li>
-                <a href="users.html">
+                <a href="User/users.html">
                     <i class="fa-solid fa-users"></i>
                     Users
                 </a>
@@ -221,7 +221,7 @@
 
                 <input type="text" id="searchUser" placeholder="Search User...">
 
-                <select>
+                <select id="roleFilter">
 
                     <option>All Roles</option>
 
@@ -234,7 +234,7 @@
                 </select>
 
 
-                <select>
+                <select id="statusFilter">
 
                     <option>All Status</option>
 
@@ -710,7 +710,7 @@
 
         <script src="SearchUser.js"></script>
 
-        <!-- <script src="FilterUser.js"></script>  --> --> -->
+        <script src="FilterUser.js"></script>
 
 </body>
 
