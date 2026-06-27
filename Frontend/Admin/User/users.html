@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="user.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h2>CertiVerify</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="users.html">
+                    <i class="fa-solid fa-users"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="organizations.html">
+                    <i class="fa-solid fa-building"></i>
+                    Organizations
+                </a>
+            </li>
+
+            <li>
+                <a href="certificates.html">
+                    <i class="fa-solid fa-certificate"></i>
+                    Certificates
+                </a>
+            </li>
+
+            <li>
+                <a href="verificationLogs.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Verification Logs
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="../Login/Login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="main">
+
+        <!-- Top Navbar -->
+
+        <div class="topbar">
+
+            <div class="search">
+
+                <input type="text" placeholder="Search...">
+
+            </div>
+
+            <div class="admin-profile">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Admin</span>
+
+            </div>
+
+        </div>
+        <div class="content">
+
+            <!-- Page Header -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Users Management</h1>
+
+                    <p>
+                        Manage all registered users in the system.
+                    </p>
+
+                </div>
+
+                <button class="add-user">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Add User
+
+                </button>
+
+            </div>
+
+
+            <!-- Statistics Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <div>
+
+                        <h2>150</h2>
+
+                        <p>Total Users</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-user-graduate"></i>
+
+                    <div>
+
+                        <h2>120</h2>
+
+                        <p>Students</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    <div>
+
+                        <h2>25</h2>
+
+                        <p>Organizations</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                    <div>
+
+                        <h2>5</h2>
+
+                        <p>Admins</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search Section -->
+
+            <div class="user-toolbar">
+
+                <input type="text" id="searchUser" placeholder="Search User...">
+
+                <select>
+
+                    <option>All Roles</option>
+
+                    <option>Admin</option>
+
+                    <option>Organization</option>
+
+                    <option>Student</option>
+
+                </select>
+
+
+                <select>
+
+                    <option>All Status</option>
+
+                    <option>Active</option>
+
+                    <option>Inactive</option>
+
+                    <option>Pending</option>
+
+                </select>
+
+            </div>
+            <!-- ==========================
+        USERS TABLE
+========================== -->
+
+            <div class="table-container">
+
+                <div class="table-header">
+
+                    <h2>Registered Users</h2>
+
+                    <span>Total : 10 Users</span>
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>User ID</th>
+
+                            <th>Name</th>
+
+                            <th>Email</th>
+
+                            <th>Role</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="userTable">
+
+                        <tr>
+
+                            <td>U001</td>
+
+                            <td>Rahul Sharma</td>
+
+                            <td>rahul@gmail.com</td>
+
+                            <td>Student</td>
+
+                            <td>
+                                <span class="status active">
+                                    Active
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <button class="view">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button class="edit">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>U002</td>
+
+                            <td>Priya Patel</td>
+
+                            <td>priya@gmail.com</td>
+
+                            <td>Student</td>
+
+                            <td>
+
+                                <span class="status active">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button class="edit">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>U003</td>
+
+                            <td>ABC University</td>
+
+                            <td>admin@abc.edu</td>
+
+                            <td>Organization</td>
+
+                            <td>
+
+                                <span class="status pending">
+
+                                    Pending
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button class="edit">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>U004</td>
+
+                            <td>XYZ Institute</td>
+
+                            <td>admin@xyz.edu</td>
+
+                            <td>Organization</td>
+
+                            <td>
+
+                                <span class="status active">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button class="edit">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>U005</td>
+
+                            <td>Super Admin</td>
+
+                            <td>admin@certiverify.com</td>
+
+                            <td>Admin</td>
+
+                            <td>
+
+                                <span class="status active">
+
+                                    Active
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                <button class="view">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </button>
+
+                                <button class="edit">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </button>
+
+                                <button class="delete">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>U006</td>
+                            <td>Rohan Gupta</td>
+                            <td>rohan@gmail.com</td>
+                            <td>Student</td>
+                            <td><span class="status active">Active</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>U007</td>
+                            <td>Sneha Singh</td>
+                            <td>sneha@gmail.com</td>
+                            <td>Student</td>
+                            <td><span class="status inactive">Inactive</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>U008</td>
+                            <td>Tech Academy</td>
+                            <td>admin@techacademy.com</td>
+                            <td>Organization</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>U009</td>
+                            <td>SAGE University</td>
+                            <td>admin@sage.edu</td>
+                            <td>Organization</td>
+                            <td><span class="status active">Active</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>U010</td>
+                            <td>System Admin</td>
+                            <td>system@certiverify.com</td>
+                            <td>Admin</td>
+                            <td><span class="status active">Active</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+            </div>
+            <!-- ==========================
+        ADD USER MODAL
+========================== -->
+
+            <div class="modal" id="userModal">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2 id="modalTitle">Add New User</h2>
+
+                        <span class="close">&times;</span>
+
+                    </div>
+
+                    <form id="userForm">
+
+                        <div class="form-group">
+
+                            <label>Full Name</label>
+
+                            <input type="text" id="name" placeholder="Enter Full Name" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Email</label>
+
+                            <input type="email" id="email" placeholder="Enter Email" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Password</label>
+
+                            <input type="password" id="password" placeholder="Enter Password" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Role</label>
+
+                            <select id="role">
+
+                                <option>Student</option>
+                                <option>Organization</option>
+                                <option>Admin</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Status</label>
+
+                            <select id="status">
+
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>Pending</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="modal-buttons">
+
+                            <button type="submit" class="save-btn">
+
+                                Save User
+
+                            </button>
+
+                            <button type="button" class="cancel-btn">
+
+                                Cancel
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- ======================================
+        VIEW USER MODAL
+====================================== -->
+
+        <div class="modal" id="viewModal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h2>User Details</h2>
+
+                    <span class="close-view">&times;</span>
+
+                </div>
+
+                <div class="view-details">
+
+                    <p><strong>User ID :</strong> <span id="viewId"></span></p>
+
+                    <p><strong>Name :</strong> <span id="viewName"></span></p>
+
+                    <p><strong>Email :</strong> <span id="viewEmail"></span></p>
+
+                    <p><strong>Role :</strong> <span id="viewRole"></span></p>
+
+                    <p><strong>Status :</strong> <span id="viewStatus"></span></p>
+
+                </div>
+
+            </div>
+
+        </div>
+        <script src="user.js"></script>
+
+        <script src="AddUser.js"></script>
+
+        <script src="EditUser.js"></script>
+
+        <script src="DeleteUser.js"></script>
+
+        <script src="ViewUser.js"></script>
+
+        <script src="SearchUser.js"></script>
+
+        <!-- <script src="FilterUser.js"></script>  --> --> -->
+
+</body>
+
+</html>
+</body>
+
+</html>
