@@ -1,8 +1,10 @@
 // ======================================
-// ViewOrganization.js
+// View Organization
 // ======================================
 
-const organizationTable = document.getElementById("organizationTable");
+const viewModal = document.getElementById("viewModal");
+
+const closeView = document.querySelector(".close-view");
 
 organizationTable.addEventListener("click", function(event){
 
@@ -10,25 +12,38 @@ organizationTable.addEventListener("click", function(event){
 
         const row = event.target.closest("tr");
 
-        const organizationID = row.cells[0].innerText;
-        const organizationName = row.cells[1].innerText;
-        const email = row.cells[2].innerText;
-        const phone = row.cells[3].innerText;
-        const status = row.cells[4].innerText;
+        document.getElementById("viewOrganizationId").innerText =
+        row.cells[0].innerText;
 
-        alert(
-`Organization Details
+        document.getElementById("viewOrganizationName").innerText =
+        row.cells[1].innerText;
 
-Organization ID : ${organizationID}
+        document.getElementById("viewOrganizationEmail").innerText =
+        row.cells[2].innerText;
 
-Organization Name : ${organizationName}
+        document.getElementById("viewOrganizationPhone").innerText =
+        row.cells[3].innerText;
 
-Email : ${email}
+        document.getElementById("viewOrganizationStatus").innerText =
+        row.cells[4].innerText;
 
-Phone : ${phone}
+        viewModal.style.display = "flex";
 
-Status : ${status}`
-        );
+    }
+
+});
+
+closeView.addEventListener("click", function(){
+
+    viewModal.style.display = "none";
+
+});
+
+window.addEventListener("click", function(event){
+
+    if(event.target === viewModal){
+
+        viewModal.style.display = "none";
 
     }
 

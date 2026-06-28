@@ -40,6 +40,34 @@ organizationForm.addEventListener("submit", function (event) {
 
     }
 
+    // ==========================
+    // Edit Organization
+    // ==========================
+
+    if (editRow) {
+
+        editRow.cells[1].innerText = name;
+        editRow.cells[2].innerText = email;
+        editRow.cells[3].innerText = phone;
+
+        editRow.cells[4].innerHTML =
+            `<span class="status ${statusClass}">${status}</span>`;
+
+        editRow = null;
+
+        organizationForm.reset();
+
+        modal.style.display = "none";
+
+        alert("Organization Updated Successfully!");
+
+        return;
+    }
+
+    // ==========================
+    // Add New Organization
+    // ==========================
+
     const newRow = document.createElement("tr");
 
     newRow.innerHTML = `
