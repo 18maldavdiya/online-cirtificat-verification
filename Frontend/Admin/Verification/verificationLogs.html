@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>VerificationLogs</title>
+
+    <link rel="stylesheet" href="verificationLogs.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h2>CertiVerify</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="User/users.html">
+                    <i class="fa-solid fa-users"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="organizations.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Organizations
+                </a>
+            </li>
+
+            <li>
+                <a href="certificates.html">
+                    <i class="fa-solid fa-certificate"></i>
+                    Certificates
+                </a>
+            </li>
+
+            <li>
+                <a href="verificationLogs.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Verification Logs
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="../Login/Login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="main">
+
+        <!-- Top Navbar -->
+
+        <div class="topbar">
+
+            <div class="search">
+
+                <input type="text" placeholder="Search...">
+
+            </div>
+
+            <div class="admin-profile">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Admin</span>
+
+            </div>
+
+        </div>
+        <div class="content">
+
+            <!-- Page Header -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Verification Logs</h1>
+
+                    <p>
+                        Manage all verification logs in the system.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Statistics Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    <div>
+
+                        <h2>10</h2>
+
+                        <p>Total Verifications</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <div>
+
+                        <h2>7</h2>
+
+                        <p>Successful Verifications</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <div>
+
+                        <h2>3</h2>
+
+                        <p>Failed Verifications</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-calendar-day"></i>
+
+                    <div>
+
+                        <h2>10</h2>
+
+                        <p>Today's Verifications</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search Section -->
+
+            <div class="user-toolbar">
+
+                <input type="text" id="searchLogs" placeholder="Search Logs...">
+
+                <select id="resultFilter">
+
+                    <option>All Results</option>
+
+                    <option>Success</option>
+                    <option>Failed</option>
+
+
+
+                </select>
+
+
+                <select id="dateFilter">
+
+                    <option>Today</option>
+
+                    <option>This Week</option>
+
+                    <option>This Month</option>
+
+                </select>
+
+            </div>
+            <!-- ==========================
+        USERS TABLE
+========================== -->
+
+            <div class="table-container">
+
+                <div class="table-header">
+
+                    <h2>Verification Logs</h2>
+
+                    <span>Total : 10 Logs</span>
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Log ID</th>
+
+                            <th>Certificate ID</th>
+
+                            <th>Verified By</th>
+
+                            <th>Verification Date</th>
+
+                            <th>Result</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="logsTable">
+
+                        <tr>
+                            <td>LOG001</td>
+                            <td>CERT001</td>
+                            <td>Admin</td>
+                            <td>29-06-2026 10:15 AM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG002</td>
+                            <td>CERT002</td>
+                            <td>Organization Admin</td>
+                            <td>29-06-2026 10:45 AM</td>
+                            <td><span class="status pending">Failed</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG003</td>
+                            <td>CERT003</td>
+                            <td>Admin</td>
+                            <td>29-06-2026 11:20 AM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG004</td>
+                            <td>CERT004</td>
+                            <td>Verifier</td>
+                            <td>29-06-2026 12:05 PM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG005</td>
+                            <td>CERT005</td>
+                            <td>Organization Admin</td>
+                            <td>29-06-2026 12:40 PM</td>
+                            <td><span class="status pending">Failed</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG006</td>
+                            <td>CERT006</td>
+                            <td>Admin</td>
+                            <td>29-06-2026 01:15 PM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG007</td>
+                            <td>CERT007</td>
+                            <td>Verifier</td>
+                            <td>29-06-2026 02:00 PM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG008</td>
+                            <td>CERT008</td>
+                            <td>Admin</td>
+                            <td>29-06-2026 02:35 PM</td>
+                            <td><span class="status pending">Failed</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG009</td>
+                            <td>CERT009</td>
+                            <td>Organization Admin</td>
+                            <td>29-06-2026 03:10 PM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>LOG010</td>
+                            <td>CERT010</td>
+                            <td>Admin</td>
+                            <td>29-06-2026 04:00 PM</td>
+                            <td><span class="status verified">Success</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+
+                </table>
+
+
+            </div>
+            <!-- ==========================
+        ADD USER MODAL
+========================== -->
+
+
+            <!-- ======================================
+        VIEW USER MODAL
+====================================== -->
+
+            <!-- ======================================
+        VIEW LOG MODAL
+====================================== -->
+
+            <div class="modal" id="viewModal">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2>Verification Details</h2>
+
+                        <span class="close-view">&times;</span>
+
+                    </div>
+
+                    <div class="view-details">
+
+                        <p><strong>Log ID :</strong> <span id="viewLogId"></span></p>
+
+                        <p><strong>Certificate ID :</strong> <span id="viewCertificateId"></span></p>
+
+                        <p><strong>Verified By :</strong> <span id="viewVerifiedBy"></span></p>
+
+                        <p><strong>Verification Date :</strong> <span id="viewVerificationDate"></span></p>
+
+                        <p><strong>Result :</strong> <span id="viewResult"></span></p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <script src="verificationLogs.js"></script>
+        <script src="SearchLogs.js"></script>
+        <script src="FilterLogs.js"></script>
+        <script src="ViewLogs.js"></script>
+
+
+</body>
+
+</html>
