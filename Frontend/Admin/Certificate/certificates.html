@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Certificate</title>
+
+    <link rel="stylesheet" href="certificate.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h2>CertiVerify</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="User/users.html">
+                    <i class="fa-solid fa-users"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="organizations.html">
+                    <i class="fa-solid fa-building"></i>
+                    Organizations
+                </a>
+            </li>
+
+            <li>
+                <a href="certificates.html">
+                    <i class="fa-solid fa-certificate"></i>
+                    Certificates
+                </a>
+            </li>
+
+            <li>
+                <a href="verificationLogs.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Verification Logs
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="../Login/Login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="main">
+
+        <!-- Top Navbar -->
+
+        <div class="topbar">
+
+            <div class="search">
+
+                <input type="text" placeholder="Search...">
+
+            </div>
+
+            <div class="admin-profile">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Admin</span>
+
+            </div>
+
+        </div>
+        <div class="content">
+
+            <!-- Page Header -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Certificate Management</h1>
+
+                    <p>
+                        Manage all issued certificates in the system.
+                    </p>
+
+                </div>
+
+                <button class="add-certificate">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Issue Certificate
+
+                </button>
+
+            </div>
+
+
+            <!-- Statistics Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    <div>
+
+                        <h2>25</h2>
+
+                        <p>Total Certificates</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <div>
+
+                        <h2>20</h2>
+
+                        <p>Verified Certificates</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <div>
+
+                        <h2>3</h2>
+
+                        <p>Pending Certificates</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-ban"></i>
+
+                    <div>
+
+                        <h2>2</h2>
+
+                        <p>Revoked Certificates</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search Section -->
+
+            <div class="user-toolbar">
+
+                <input type="text" id="searchCertificate" placeholder="Search Certificate...">
+
+                <select id="roleFilter">
+
+                    <option>All Courses</option>
+
+                    <option>Java Full Stack</option>
+
+                    <option>Python Programming</option>
+
+                    <option>Web Development</option>
+
+                    <option>React JS</option>
+                    <option>Node.js Development</option>
+                    <option>Machine Learning</option>
+                    <option>Cloud Computing</option>
+                    <option>UI/UX Design</option>
+                    <option>Cyber Security</option>
+
+
+
+                </select>
+
+
+                <select id="statusFilter">
+
+                    <option>All Status</option>
+
+                    <option>Verified</option>
+
+                    <option>Inactive</option>
+
+                    <option>Pending</option>
+
+                </select>
+
+            </div>
+            <!-- ==========================
+        USERS TABLE
+========================== -->
+
+            <div class="table-container">
+
+                <div class="table-header">
+
+                    <h2>Issued Certificates</h2>
+
+                    <span>Total : 10 Certificates</span>
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Certificate ID</th>
+
+                            <th>Student Name</th>
+
+                            <th>Course</th>
+
+                            <th>Organization</th>
+
+                            <th>Issue Date</th>
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="certificateTable">
+
+                        <tr>
+                            <td>CERT001</td>
+                            <td>Rahul Sharma</td>
+                            <td>Java Full Stack</td>
+                            <td>SAGE University</td>
+                            <td>10-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT002</td>
+                            <td>Priya Patel</td>
+                            <td>Web Development</td>
+                            <td>ABC Institute</td>
+                            <td>12-06-2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT003</td>
+                            <td>Aman Verma</td>
+                            <td>Python Programming</td>
+                            <td>Tech Academy</td>
+                            <td>15-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT004</td>
+                            <td>Neha Singh</td>
+                            <td>Data Analytics</td>
+                            <td>Bright Future College</td>
+                            <td>18-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT005</td>
+                            <td>Rohit Gupta</td>
+                            <td>Machine Learning</td>
+                            <td>Global Skill Center</td>
+                            <td>20-06-2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT006</td>
+                            <td>Anjali Joshi</td>
+                            <td>UI/UX Design</td>
+                            <td>National Training Institute</td>
+                            <td>22-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT007</td>
+                            <td>Vikas Kumar</td>
+                            <td>Cloud Computing</td>
+                            <td>Future Vision Academy</td>
+                            <td>24-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT008</td>
+                            <td>Sneha Jain</td>
+                            <td>Cyber Security</td>
+                            <td>SkillUp Institute</td>
+                            <td>26-06-2026</td>
+                            <td><span class="status revoked">Revoked</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT009</td>
+                            <td>Arjun Mehta</td>
+                            <td>React JS</td>
+                            <td>Digital Learning Hub</td>
+                            <td>27-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CERT010</td>
+                            <td>Pooja Sharma</td>
+                            <td>Node.js Development</td>
+                            <td>NextGen Education</td>
+                            <td>28-06-2026</td>
+                            <td><span class="status verified">Verified</span></td>
+                            <td>
+                                <button class="view"><i class="fa-solid fa-eye"></i></button>
+                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
+                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+
+
+
+                </table>
+
+
+            </div>
+            <!-- ==========================
+        ADD USER MODAL
+========================== -->
+
+            <div class="modal" id="certificateModal">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2 id="modalTitle">Issue Certificate</h2>
+
+                        <span class="close">&times;</span>
+
+                    </div>
+
+                    <form id="certificateForm">
+
+                        <label>Student Name</label>
+                        <input type="text" id="studentName" placeholder="Enter Student Name" required>
+
+                        <label>Student Email</label>
+                        <input type="email" id="studentEmail" placeholder="Enter Student Email" required>
+
+                        <label>Course Name</label>
+
+                        <select id="courseName" required>
+
+                            <option value="">Select Course</option>
+
+                            <option>Java Full Stack</option>
+
+                            <option>Web Development</option>
+
+                            <option>Python Programming</option>
+
+                            <option>React JS</option>
+
+                            <option>Node.js Development</option>
+
+                            <option>Machine Learning</option>
+
+                            <option>Cloud Computing</option>
+
+                            <option>Cyber Security</option>
+
+                            <option>UI/UX Design</option>
+
+                            <option>Data Analytics</option>
+
+                        </select>
+
+
+                        <label>Organization</label>
+
+                        <select id="organizationName" required>
+
+                            <option value="">Select Organization</option>
+
+                            <option>SAGE University</option>
+
+                            <option>ABC Institute</option>
+
+                            <option>Tech Academy</option>
+
+                            <option>Bright Future College</option>
+
+                            <option>Global Skill Center</option>
+
+                            <option>National Training Institute</option>
+
+                            <option>Future Vision Academy</option>
+
+                            <option>SkillUp Institute</option>
+
+                            <option>Digital Learning Hub</option>
+
+                            <option>NextGen Education</option>
+
+                        </select>
+
+                        <label>Issue Date</label>
+                        <input type="date" id="issueDate" required>
+
+
+                        <label>Status</label>
+                        <select id="certificateStatus">
+                            <option>Verified</option>
+                            <option>Pending</option>
+                            <option>Revoked</option>
+                        </select>
+
+                        <div class="modal-buttons">
+
+                            <button type="submit" class="save-btn">
+                                Issue Certificate
+                            </button>
+
+                            <button type="button" class="cancel-btn">
+                                Cancel
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+            <!-- ======================================
+        VIEW USER MODAL
+====================================== -->
+
+            <div class="modal" id="viewModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Certificate Details</h2>
+
+            <span class="close-view">&times;</span>
+
+        </div>
+
+        <div class="view-details">
+
+            <p><strong>Certificate ID :</strong> <span id="viewCertificateId"></span></p>
+
+            <p><strong>Student Name :</strong> <span id="viewStudentName"></span></p>
+
+            <p><strong>Course :</strong> <span id="viewCourse"></span></p>
+
+            <p><strong>Organization :</strong> <span id="viewOrganization"></span></p>
+
+            <p><strong>Issue Date :</strong> <span id="viewIssueDate"></span></p>
+
+            <p><strong>Status :</strong> <span id="viewStatus"></span></p>
+
+        </div>
+
+    </div>
+
+</div>
+        </div>
+        <script src="certificate.js"></script>
+
+        <script src="AddCertificate.js"></script>
+
+        <script src="DeleteCertificate.js"></script>
+
+         <script src="ViewCertificate.js"></script>
+
+        <script src="SearchCertificate.js"></script>
+
+         <script src="EditCertificate.js"></script>
+
+        <!-- <script src="FilterUser.js"></script>  -->
+
+</body>
+
+</html>
+</body>
+
+</html>
