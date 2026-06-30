@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports</title>
+
+    <link rel="stylesheet" href="reports.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h2>CertiVerify</h2>
+
+        </div>
+
+        <ul>
+
+            <li class="active">
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="User/users.html">
+                    <i class="fa-solid fa-users"></i>
+                    Users
+                </a>
+            </li>
+
+            <li>
+                <a href="organizations.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Organizations
+                </a>
+            </li>
+
+            <li>
+                <a href="certificates.html">
+                    <i class="fa-solid fa-certificate"></i>
+                    Certificates
+                </a>
+            </li>
+
+            <li>
+                <a href="verificationLogs.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    Verification Logs
+                </a>
+            </li>
+
+            <li>
+                <a href="reports.html">
+                    <i class="fa-solid fa-chart-column"></i>
+                    Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="settings.html">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    <i class="fa-solid fa-user"></i>
+                    Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="../Login/Login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="main">
+
+        <!-- Top Navbar -->
+
+        <div class="topbar">
+
+            <div class="search">
+
+                <input type="text" placeholder="Search...">
+
+            </div>
+
+            <div class="admin-profile">
+
+                <i class="fa-solid fa-bell"></i>
+
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Admin</span>
+
+            </div>
+
+        </div>
+        <div class="content">
+
+            <!-- Page Header -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h1>Reports</h1>
+
+                    <p>
+                        View and manage system reports.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- Statistics Cards -->
+
+            <div class="cards">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-file-lines"></i>
+
+                    <div>
+
+                        <h2>15</h2>
+
+                        <p>Total Reports</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <div>
+
+                        <h2>8</h2>
+
+                        <p>Certificate Reports</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                    <div>
+
+                        <h2>4</h2>
+
+                        <p>Organization Reports</p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <i class="fa-solid fa-calendar-day"></i>
+
+                    <div>
+
+                        <h2>3</h2>
+
+                        <p>User Reports</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search Section -->
+
+            <div class="user-toolbar">
+
+                <input type="text" id="searchLogs" placeholder="Search Reports...">
+
+                <select id="resultFilter">
+
+                    <option>All Categories</option>
+
+                    <option>Certificate</option>
+                    <option>Organization</option>
+                    <option>User</option>
+                    <option>System</option>
+
+
+
+                </select>
+
+
+                <select id="dateFilter">
+
+                    <option>All Dates</option>
+
+                    <option>Today</option>
+
+                    <option>Last 7 Days</option>
+
+                    <option>This Month</option>
+
+                </select>
+
+            </div>
+            <!-- ==========================
+        USERS TABLE
+========================== -->
+
+            <div class="table-container">
+
+                <div class="table-header">
+
+                    <h2>Generated Reports</h2>
+
+                    <span>Total : 15 Reports</span>
+
+                </div>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Report ID</th>
+
+                            <th>Report Name</th>
+
+                            <th>Category</th>
+
+                            <th>Generated By</th>
+
+                            <th>Date</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="reportsTable">
+
+                        <tr>
+                            <td>REP001</td>
+                            <td>Certificate Report</td>
+                            <td>Certificate</td>
+                            <td>Admin</td>
+                            <td>30-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP002</td>
+                            <td>User Report</td>
+                            <td>User</td>
+                            <td>Admin</td>
+                            <td>30-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP003</td>
+                            <td>Organization Report</td>
+                            <td>Organization</td>
+                            <td>Admin</td>
+                            <td>29-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP004</td>
+                            <td>Certificate Summary</td>
+                            <td>Certificate</td>
+                            <td>Admin</td>
+                            <td>29-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP005</td>
+                            <td>User Activity Report</td>
+                            <td>User</td>
+                            <td>Admin</td>
+                            <td>28-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP006</td>
+                            <td>Organization Summary</td>
+                            <td>Organization</td>
+                            <td>Admin</td>
+                            <td>28-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP007</td>
+                            <td>Certificate Analytics</td>
+                            <td>Certificate</td>
+                            <td>Admin</td>
+                            <td>27-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP008</td>
+                            <td>User Analytics</td>
+                            <td>User</td>
+                            <td>Admin</td>
+                            <td>27-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP009</td>
+                            <td>Organization Analytics</td>
+                            <td>Organization</td>
+                            <td>Admin</td>
+                            <td>26-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP010</td>
+                            <td>System Summary Report</td>
+                            <td>System</td>
+                            <td>Admin</td>
+                            <td>26-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>REP011</td>
+                            <td>User Login Report</td>
+                            <td>User</td>
+                            <td>Admin</td>
+                            <td>25-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP012</td>
+                            <td>Certificate Verification Report</td>
+                            <td>Certificate</td>
+                            <td>Admin</td>
+                            <td>25-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP013</td>
+                            <td>Organization Activity Report</td>
+                            <td>Organization</td>
+                            <td>Admin</td>
+                            <td>24-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP014</td>
+                            <td>Certificate Statistics</td>
+                            <td>Certificate</td>
+                            <td>Admin</td>
+                            <td>24-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                        <tr>
+                            <td>REP015</td>
+                            <td>Monthly System Report</td>
+                            <td>System</td>
+                            <td>Admin</td>
+                            <td>23-06-2026</td>
+                            <td><button class="view"><i class="fa-solid fa-eye"></i></button></td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+            <!-- ==========================
+        ADD USER MODAL
+========================== -->
+
+
+            <!-- ======================================
+        VIEW USER MODAL
+====================================== -->
+
+            <!-- ======================================
+        VIEW LOG MODAL
+====================================== -->
+
+            <!-- ======================================
+        VIEW REPORT MODAL
+====================================== -->
+
+            <div class="modal" id="reportModal">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h2>Report Details</h2>
+
+                        <span class="close-view">&times;</span>
+
+                    </div>
+
+                    <div class="view-details">
+
+                        <p><strong>Report ID :</strong> <span id="viewReportId"></span></p>
+
+                        <p><strong>Report Name :</strong> <span id="viewReportName"></span></p>
+
+                        <p><strong>Category :</strong> <span id="viewCategory"></span></p>
+
+                        <p><strong>Generated By :</strong> <span id="viewGeneratedBy"></span></p>
+
+                        <p><strong>Generated Date :</strong> <span id="viewDate"></span></p>
+
+                    </div>
+
+                    <div class="modal-buttons">
+
+                        <button type="button" class="cancel-btn close-report">
+
+                            Close
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <script src="reports.js"></script>
+    <script src="ViewReport.js"></script>
+    <script src="SearchReport.js"></script>
+    <script src="FilterReport.js"></script>
+
+
+</body>
+
+</html>
