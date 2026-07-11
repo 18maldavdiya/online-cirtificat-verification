@@ -57,7 +57,7 @@ form.addEventListener("submit", function(event){
 
         alert("Welcome Organization");
 
-        window.location.href="../Organization/dashboard.html";
+        window.location.href="../Admin/Organization/organizations.html";
 
     }
 
@@ -67,7 +67,7 @@ form.addEventListener("submit", function(event){
 
         alert("Welcome Student");
 
-        window.location.href="../Student/dashboard.html";
+        window.location.href="../Admin/dashboard.html";
 
     }
 
@@ -79,4 +79,3 @@ form.addEventListener("submit", function(event){
 
 });
 
-console.log(hanish);

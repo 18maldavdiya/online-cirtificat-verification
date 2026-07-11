@@ -25,7 +25,7 @@ menuItems.forEach((item)=>{
 // Logout
 // ===============================
 
-const logout = menuItems[8];
+const logout = document.querySelector(".logout-item");
 
 logout.addEventListener("click",()=>{
 

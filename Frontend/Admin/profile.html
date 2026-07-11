@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>CertiVerify</h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="User/users.html"><i class="fa-solid fa-users"></i> Users</a></li>
+            <li><a href="Organization/organizations.html"><i class="fa-solid fa-building"></i> Organizations</a></li>
+            <li><a href="Certificate/certificates.html"><i class="fa-solid fa-certificate"></i> Certificates</a></li>
+            <li><a href="Verification/verificationLogs.html"><i class="fa-solid fa-clipboard-check"></i> Verification Logs</a></li>
+            <li><a href="Reports/reports.html"><i class="fa-solid fa-chart-column"></i> Reports</a></li>
+            <li><a href="Settings/settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li class="active"><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="../Login/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="admin-profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Admin</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-header">
+                <div>
+                    <h1>Profile</h1>
+                    <p>View and manage your administrator profile.</p>
+                </div>
+            </div>
+            <div class="settings-container">
+                <div class="settings-card">
+                    <h2><i class="fa-solid fa-user"></i> Admin Profile</h2>
+                    <p><strong>Name:</strong> Admin</p>
+                    <p><strong>Email:</strong> admin@certiverify.com</p>
+                    <p><strong>Role:</strong> Administrator</p>
+                    <p><strong>Status:</strong> Active</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

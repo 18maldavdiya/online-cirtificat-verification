@@ -2,8 +2,6 @@
 // DeleteOrganization.js
 // ======================================
 
-const organizationTable = document.getElementById("organizationTable");
-
 // Event Delegation
 
 organizationTable.addEventListener("click", function(event){

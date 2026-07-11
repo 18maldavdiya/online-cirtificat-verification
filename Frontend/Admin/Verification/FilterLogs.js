@@ -5,14 +5,13 @@
 const resultFilter = document.getElementById("resultFilter");
 const dateFilter = document.getElementById("dateFilter");
 const filterLogsTable = document.getElementById("logsTable");
-const rows = filterLogsTable.getElementsByTagName("tr");
 
 function filterLogs() {
 
     const selectedResult = resultFilter.value.toLowerCase();
     const selectedDate = dateFilter.value.toLowerCase();
 
-    const rows = logsTable.getElementsByTagName("tr");
+    const rows = filterLogsTable.getElementsByTagName("tr");
 
     for (let i = 0; i < rows.length; i++) {
 
