@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../Admin/admin.css">
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>CertiVerify</h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li><a href="certificates.html"><i class="fa-solid fa-certificate"></i> My Certificates</a></li>
+            <li class="active"><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a></li>
+            <li class="logout-item"><a href="../Login/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <input type="text" placeholder="Profile">
+            </div>
+            <div class="admin-profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Hanish</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-heading">
+                <div>
+                    <h1>My Profile</h1>
+                    <p>Manage your personal details and academic profile.</p>
+                </div>
+                <button class="primary-btn" id="editProfileBtn">Edit Profile</button>
+            </div>
+
+            <div class="profile-card">
+                <div class="profile-summary">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h2 id="profileName">Hanish Maldavdiya</h2>
+                        <p id="profileEmail">hanish@example.com</p>
+                    </div>
+                </div>
+
+                <form id="profileForm" class="profile-form">
+                    <div class="form-group"><label>Full Name</label><input id="fullName" type="text" disabled></div>
+                    <div class="form-group"><label>Email</label><input id="email" type="email" disabled></div>
+                    <div class="form-group"><label>Phone</label><input id="phone" type="text" disabled></div>
+                    <div class="form-group"><label>Student ID</label><input id="studentId" type="text" disabled></div>
+                    <div class="form-group"><label>Date of Birth</label><input id="dob" type="text" disabled></div>
+                    <div class="form-group"><label>College / University</label><input id="college" type="text" disabled></div>
+                    <div class="form-group"><label>Course / Program</label><input id="course" type="text" disabled></div>
+                    <button type="submit" class="primary-btn" id="saveProfileBtn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="user.js"></script>
+</body>
+</html>

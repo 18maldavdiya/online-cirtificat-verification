@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates</title>
+    <link rel="stylesheet" href="../Admin/admin.css">
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>CertiVerify</h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="active"><a href="certificates.html"><i class="fa-solid fa-certificate"></i> My Certificates</a></li>
+            <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a></li>
+            <li class="logout-item"><a href="../Login/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <input type="text" id="certificateSearch" placeholder="Search certificates">
+            </div>
+            <div class="admin-profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Hanish</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-heading">
+                <div>
+                    <h1>My Certificates</h1>
+                    <p>Search and manage your issued and verified certificates.</p>
+                </div>
+                <div class="page-actions">
+                    <select id="certificateFilter">
+                        <option value="all">All</option>
+                        <option value="Verified">Verified</option>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Course</th>
+                            <th>Organization</th>
+                            <th>Issue Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="certificateTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="user.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Details</title>
+    <link rel="stylesheet" href="../Admin/admin.css">
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>CertiVerify</h2>
+        </div>
+        <ul>
+            <li><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="active"><a href="certificates.html"><i class="fa-solid fa-certificate"></i> My Certificates</a></li>
+            <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li><a href="notifications.html"><i class="fa-solid fa-bell"></i> Notifications</a></li>
+            <li class="logout-item"><a href="../Login/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <input type="text" placeholder="Certificate details">
+            </div>
+            <div class="admin-profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Hanish</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-heading">
+                <div>
+                    <h1>Certificate Details</h1>
+                    <p>Review certificate information and verification status.</p>
+                </div>
+                <a href="certificates.html" class="secondary-btn">Back to My Certificates</a>
+            </div>
+
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div>
+                        <h2 id="detailCourse">Certificate</h2>
+                        <p id="detailOrg">Organization</p>
+                    </div>
+                    <span id="detailStatus" class="status-badge">Status</span>
+                </div>
+                <div class="detail-grid">
+                    <div><strong>Certificate ID</strong><p id="detailId"></p></div>
+                    <div><strong>Student Name</strong><p>Hanish Maldavdiya</p></div>
+                    <div><strong>Issue Date</strong><p id="detailIssue"></p></div>
+                    <div><strong>Expiry Date</strong><p id="detailExpiry"></p></div>
+                    <div><strong>Verification Status</strong><p id="detailVerification"></p></div>
+                    <div><strong>Issued By</strong><p id="detailOrg2"></p></div>
+                </div>
+                <div class="qr-box">
+                    <i class="fa-solid fa-qrcode"></i>
+                    <p>QR Code Placeholder</p>
+                </div>
+                <div class="detail-actions">
+                    <button class="primary-btn" id="downloadBtn">Download Certificate</button>
+                    <button class="secondary-btn" id="verifyBtn">Verify Certificate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="user.js"></script>
+</body>
+</html>
