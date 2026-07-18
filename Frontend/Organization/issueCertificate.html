@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Certificate</title>
+    <link rel="stylesheet" href="../Admin/admin.css">
+    <link rel="stylesheet" href="organization-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>CertiVerify</h2>
+            <p>Organization Portal</p>
+        </div>
+        <ul>
+            <li data-page="dashboard"><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li data-page="issueCertificate" class="active"><a href="issueCertificate.html"><i class="fa-solid fa-file-circle-plus"></i> Issue Certificate</a></li>
+            <li data-page="manageCertificates"><a href="manageCertificates.html"><i class="fa-solid fa-list-check"></i> Manage Certificates</a></li>
+            <li data-page="verificationHistory"><a href="verificationHistory.html"><i class="fa-solid fa-clock-rotate-left"></i> Verification History</a></li>
+            <li data-page="profile"><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li data-page="settings"><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li class="logout-item"><a href="../Login/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <input type="text" placeholder="Search certificate forms">
+            </div>
+            <div class="admin-profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Org Admin</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-header">
+                <div>
+                    <h1>Issue Certificate</h1>
+                    <p>Create a new certificate record with sample organization details.</p>
+                </div>
+                <a href="manageCertificates.html" class="primary-btn"><i class="fa-solid fa-list"></i> View Certificates</a>
+            </div>
+
+            <div class="form-card">
+                <form>
+                    <div class="form-grid">
+                        <div>
+                            <label>Recipient Name</label>
+                            <input type="text" value="Sarah Khan">
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <input type="email" value="sarah.khan@example.com">
+                        </div>
+                        <div>
+                            <label>Course / Program</label>
+                            <input type="text" value="Advanced Cybersecurity">
+                        </div>
+                        <div>
+                            <label>Issue Date</label>
+                            <input type="date" value="2026-07-18">
+                        </div>
+                        <div>
+                            <label>Certificate Type</label>
+                            <select>
+                                <option>Completion</option>
+                                <option>Achievement</option>
+                                <option>Participation</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Status</label>
+                            <select>
+                                <option>Pending Review</option>
+                                <option>Verified</option>
+                                <option>Draft</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn">Save Draft</button>
+                        <button type="submit" class="primary-btn">Issue Certificate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="organization-dashboard.js"></script>
+</body>
+</html>

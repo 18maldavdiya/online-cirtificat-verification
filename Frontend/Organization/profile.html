@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Profile</title>
+    <link rel="stylesheet" href="../Admin/admin.css">
+    <link rel="stylesheet" href="organization-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <h2>CertiVerify</h2>
+            <p>Organization Portal</p>
+        </div>
+        <ul>
+            <li data-page="dashboard"><a href="dashboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li data-page="issueCertificate"><a href="issueCertificate.html"><i class="fa-solid fa-file-circle-plus"></i> Issue Certificate</a></li>
+            <li data-page="manageCertificates"><a href="manageCertificates.html"><i class="fa-solid fa-list-check"></i> Manage Certificates</a></li>
+            <li data-page="verificationHistory"><a href="verificationHistory.html"><i class="fa-solid fa-clock-rotate-left"></i> Verification History</a></li>
+            <li data-page="profile" class="active"><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+            <li data-page="settings"><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            <li class="logout-item"><a href="../Login/Login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <input type="text" placeholder="Search profile details">
+            </div>
+            <div class="admin-profile">
+                <i class="fa-solid fa-bell"></i>
+                <i class="fa-solid fa-circle-user profile-icon"></i>
+                <span>Org Admin</span>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="page-header">
+                <div>
+                    <h1>Organization Profile</h1>
+                    <p>Manage your organization details and contact information.</p>
+                </div>
+                <a href="settings.html" class="primary-btn"><i class="fa-solid fa-pen-to-square"></i> Edit Settings</a>
+            </div>
+
+            <div class="profile-grid">
+                <div class="section-card profile-card">
+                    <div class="profile-avatar">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h3>Northstar Academy</h3>
+                    <p>Education Partner</p>
+                    <div class="profile-details">
+                        <p><strong>Contact:</strong> info@northstar.edu</p>
+                        <p><strong>Phone:</strong> +94 77 123 4567</p>
+                        <p><strong>Address:</strong> 22, Colombo Road, Sri Lanka</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Account Summary</h3>
+                    </div>
+                    <ul class="activity-list">
+                        <li><strong>Subscription</strong><span>Premium</span></li>
+                        <li><strong>Active Certificates</strong><span>128</span></li>
+                        <li><strong>Last Updated</strong><span>2 days ago</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="organization-dashboard.js"></script>
+</body>
+</html>
