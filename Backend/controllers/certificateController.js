@@ -1,5 +1,7 @@
+const QRCode = require("qrcode");
 const Certificate = require("../models/Certificate");
 const Organization = require("../models/Organization");
+const generateCertificatePDF = require("../utils/generatePDF");
 const {
     isValidId,
     getPagination,
@@ -13,6 +15,15 @@ const ALLOWED_CERT_TYPES = ["Completion", "Achievement", "Participation"];
 const ALLOWED_STATUSES = ["Draft", "Pending", "Verified", "Revoked", "Expired"];
 const EMAIL_REGEX = /^\S+@\S+\.\S+$/;
 
+// Built from the non-guessable verificationToken, never from the internal _id
+// or the (sequential, guessable) human-readable certificateId.
+const buildVerificationUrl = (token) =>
+    `${process.env.PUBLIC_BASE_URL || "http://localhost:5000"}/api/verify/${token}`;
+
+// Internal/authenticated view (Admin & the issuing Organization). Includes the
+// verification token/URL and QR image since the issuer legitimately needs them
+// to share or re-print the certificate. This is distinct from the public
+// verification response, which must never echo the token back.
 const formatCertificate = (cert) => ({
     id: cert._id,
     certificateId: cert.certificateId,
@@ -26,6 +37,8 @@ const formatCertificate = (cert) => ({
     issueDate: cert.issueDate,
     expiryDate: cert.expiryDate,
     status: cert.status,
+    verificationToken: cert.verificationToken,
+    verificationUrl: cert.verificationToken ? buildVerificationUrl(cert.verificationToken) : undefined,
     qrCode: cert.qrCode,
     fileUrl: cert.fileUrl,
     createdAt: cert.createdAt,
@@ -37,7 +50,16 @@ const getOwnedOrganization = (req) => Organization.findOne({ user: req.user.id }
 
 const isCertOwnedByOrgUser = async (cert, req) => {
     const org = await getOwnedOrganization(req);
-    return !!(org && cert.organization && cert.organization.toString() === org._id.toString());
+    if (!org || !cert.organization) {
+        return false;
+    }
+    // cert.organization may be a raw ObjectId (most callers) or a populated
+    // Organization document (e.g. the PDF download route, which needs the
+    // org's name) - support both so this check stays a single shared helper.
+    const certOrgId = cert.organization._id
+        ? cert.organization._id.toString()
+        : cert.organization.toString();
+    return certOrgId === org._id.toString();
 };
 
 const isCertOwnedByStudent = (cert, req) =>
@@ -139,7 +161,10 @@ exports.createCertificate = async (req, res) => {
             });
         }
 
-        const cert = await Certificate.create({
+        // Construct (not .create()) so the schema-level verificationToken
+        // default is populated before we need it to build the QR code, letting
+        // the whole thing persist in a single write.
+        const cert = new Certificate({
             certificateId,
             recipientName,
             recipientEmail,
@@ -152,6 +177,11 @@ exports.createCertificate = async (req, res) => {
             expiryDate,
             status,
         });
+
+        const verificationUrl = buildVerificationUrl(cert.verificationToken);
+        cert.qrCode = await QRCode.toDataURL(verificationUrl);
+
+        await cert.save();
 
         return res.status(201).json({
             success: true,
@@ -466,5 +496,65 @@ exports.deleteCertificate = async (req, res) => {
             message: "Server error deleting certificate",
             error: error.message,
         });
+    }
+};
+
+// @desc    Download a certificate as a professionally laid-out PDF, generated
+//          on the fly from the current database record (never persisted to disk)
+// @route   GET /api/certificates/:id/pdf
+// @access  Admin (any) / Organization (own certs) / User (own certs)
+exports.downloadCertificatePdf = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!isValidId(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid certificate ID",
+            });
+        }
+
+        const cert = await Certificate.findById(id).populate("organization", "name type");
+
+        if (!cert) {
+            return res.status(404).json({
+                success: false,
+                message: "Certificate not found",
+            });
+        }
+
+        // Reuses the exact same ownership rules already enforced on
+        // GET /api/certificates/:id - nothing is generated until authorization passes.
+        if (req.user.role === "organization") {
+            const owned = await isCertOwnedByOrgUser(cert, req);
+            if (!owned) {
+                return res.status(403).json({
+                    success: false,
+                    message: "You are not authorized to download this certificate",
+                });
+            }
+        } else if (req.user.role === "user" && !isCertOwnedByStudent(cert, req)) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to download this certificate",
+            });
+        }
+
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Content-Disposition", `attachment; filename="${cert.certificateId}.pdf"`);
+
+        generateCertificatePDF(cert, res);
+    } catch (error) {
+        // Headers/streaming may already be underway by the time a generation
+        // error surfaces, so only attempt a JSON error response if nothing
+        // has been sent to the client yet.
+        if (!res.headersSent) {
+            return res.status(500).json({
+                success: false,
+                message: "Server error generating certificate PDF",
+                error: error.message,
+            });
+        }
+        return res.end();
     }
 };

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 
 const certificateSchema = new mongoose.Schema(
     {
@@ -8,6 +9,15 @@ const certificateSchema = new mongoose.Schema(
             unique: true,
             trim: true,
             uppercase: true,
+        },
+        // Non-guessable public identifier used for QR-code verification links.
+        // Generated automatically so every code path that creates a Certificate
+        // (now or in the future) gets one, without controllers needing to remember to.
+        verificationToken: {
+            type: String,
+            unique: true,
+            index: true,
+            default: () => crypto.randomBytes(24).toString("hex"),
         },
         recipientName: {
             type: String,

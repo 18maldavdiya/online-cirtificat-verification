@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const organizationRoutes = require("./routes/organizationRoutes");
 const certificateRoutes = require("./routes/certificateRoutes");
+const verificationRoutes = require("./routes/verificationRoutes");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/organizations", organizationRoutes);
 app.use("/api/certificates", certificateRoutes);
+app.use("/api", verificationRoutes);
 
 const PORT = process.env.PORT || 5000;
 

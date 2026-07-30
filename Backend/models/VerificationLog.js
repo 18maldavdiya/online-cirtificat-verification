@@ -5,7 +5,15 @@ const verificationLogSchema = new mongoose.Schema(
         certificate: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Certificate",
-            required: [true, "Certificate reference is required"],
+            // Intentionally optional: a verification attempt against a
+            // nonexistent/bogus code still needs to be logged for audit purposes,
+            // and there is no certificate document to reference in that case.
+        },
+        // What the caller actually submitted, recorded only when it didn't
+        // resolve to a real certificate (kept null otherwise to avoid duplication).
+        attemptedCode: {
+            type: String,
+            trim: true,
         },
         verifiedBy: {
             type: mongoose.Schema.Types.ObjectId,
@@ -22,6 +30,10 @@ const verificationLogSchema = new mongoose.Schema(
             required: [true, "Verification result is required"],
         },
         ipAddress: {
+            type: String,
+            trim: true,
+        },
+        userAgent: {
             type: String,
             trim: true,
         },

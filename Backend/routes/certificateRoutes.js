@@ -7,6 +7,7 @@ const {
     getCertificate,
     updateCertificate,
     deleteCertificate,
+    downloadCertificatePdf,
 } = require("../controllers/certificateController");
 
 const { protect, authorize } = require("../middleware/authMiddleware");
@@ -23,5 +24,9 @@ router
     .get(authorize("admin", "organization", "user"), getCertificate)
     .put(authorize("admin", "organization"), updateCertificate)
     .delete(authorize("admin", "organization"), deleteCertificate);
+
+router
+    .route("/:id/pdf")
+    .get(authorize("admin", "organization", "user"), downloadCertificatePdf);
 
 module.exports = router;
