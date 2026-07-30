@@ -284,11 +284,17 @@ body{
 
     box-shadow:0 5px 15px rgba(0,0,0,.08);
 
+    transition:0.3s ease;
+
+    cursor:pointer;
+
 }
 
 .card:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,0.15);
 
 }
 
@@ -311,24 +317,6 @@ body{
 .card p{
 
     color:#666;
-
-}
-.card{
-
-    transition:0.3s ease;
-
-}
-
-.card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 10px 20px rgba(0,0,0,0.15);
-
-}
-.card{
-
-    cursor:pointer;
 
 }
 
@@ -365,7 +353,7 @@ body{
 
 }
 
-.add-organization:hover{
+.add-certificate:hover{
 
     background:#1d4ed8;
 
@@ -386,11 +374,6 @@ body{
 
     margin-bottom:30px;
     margin-top:35px;
-
-}
-.user-toolbar input{
-
-    width:450px;
 
 }
 .user-toolbar input{
@@ -416,6 +399,24 @@ body{
     border-radius:8px;
 
 }
+@media(max-width:992px){
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.sidebar{
+
+    width:220px;
+
+}
+
+}
+
 @media(max-width:1200px){
 
 .cards{
@@ -682,17 +683,6 @@ tbody tr:hover{
     padding:10px;
 
     margin-bottom:8px;
-
-}
-.modal-buttons{
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:15px;
-
-    margin-top:20px;
 
 }
 

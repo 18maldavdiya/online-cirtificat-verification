@@ -61,4 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
             </tr>
         `;
     }
+
+    const logoutItem = document.querySelector('.logout-item');
+    if (logoutItem) {
+        logoutItem.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '../Login/Login.html';
+            }
+        });
+    }
 });

@@ -35,25 +35,6 @@ body{
         SIDEBAR
 ==========================*/
 
-.sidebar{
-
-    width:260px;
-
-    height:100vh;
-
-    background:#1e3a8a;
-
-    color:white;
-
-    position:fixed;
-
-    left:0;
-
-    top:0;
-
-}
-
-
 .logo{
 
     text-align:center;
@@ -337,6 +318,24 @@ body{
 /*==========================
       RESPONSIVE
 ==========================*/
+
+@media(max-width:992px){
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.sidebar{
+
+    width:220px;
+
+}
+
+}
 
 @media(max-width:1200px){
 

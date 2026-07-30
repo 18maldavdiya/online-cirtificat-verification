@@ -22,6 +22,8 @@ function closeModal(){
 
     document.getElementById("certificateForm").reset();
 
+    editRow = null;
+
 }
 
 closeBtn.addEventListener("click", closeModal);

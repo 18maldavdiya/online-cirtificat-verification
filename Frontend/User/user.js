@@ -168,6 +168,9 @@ if (document.getElementById('detailCourse')) initDetails();
 if (document.getElementById('notificationsList')) initNotifications();
 
 const logoutItem = document.querySelector('.logout-item');
-if (logoutItem) logoutItem.addEventListener('click', () => {
-  window.location.href = '../Login/Login.html';
+if (logoutItem) logoutItem.addEventListener('click', (event) => {
+  event.preventDefault();
+  if (confirm('Are you sure you want to logout?')) {
+    window.location.href = '../Login/Login.html';
+  }
 });

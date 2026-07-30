@@ -57,7 +57,7 @@ form.addEventListener("submit", function(event){
 
         alert("Welcome Organization");
 
-        window.location.href="../Admin/Organization/organizations.html";
+        window.location.href="../Organization/dashboard.html";
 
     }
 
@@ -67,7 +67,7 @@ form.addEventListener("submit", function(event){
 
         alert("Welcome Student");
 
-        window.location.href="../Admin/dashboard.html";
+        window.location.href="../User/dashboard.html";
 
     }
 

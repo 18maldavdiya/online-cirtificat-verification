@@ -876,6 +876,20 @@ footer p{
 
 }
 
+footer .footer-container a{
+
+    color:#ccc;
+    text-decoration:none;
+    transition:.3s;
+
+}
+
+footer .footer-container a:hover{
+
+    color:#2563eb;
+
+}
+
 .copy{
 
     text-align:center;

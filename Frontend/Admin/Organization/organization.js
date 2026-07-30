@@ -31,6 +31,8 @@ function closeModal(){
 
     document.getElementById("organizationForm").reset();
 
+    editRow = null;
+
 }
 
 

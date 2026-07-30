@@ -41,6 +41,35 @@ certificateForm.addEventListener("submit", function(event){
 
     }
 
+    // ==========================
+    // Edit Certificate
+    // ==========================
+
+    if(editRow){
+
+        editRow.cells[1].innerText = studentName;
+        editRow.cells[2].innerText = course;
+        editRow.cells[3].innerText = organization;
+        editRow.cells[4].innerText = issueDate;
+
+        editRow.cells[5].innerHTML =
+            `<span class="status ${statusClass}">${status}</span>`;
+
+        editRow = null;
+
+        certificateForm.reset();
+
+        modal.style.display="none";
+
+        alert("Certificate Updated Successfully!");
+
+        return;
+    }
+
+    // ==========================
+    // Add New Certificate
+    // ==========================
+
     const newRow=document.createElement("tr");
 
     newRow.innerHTML=`

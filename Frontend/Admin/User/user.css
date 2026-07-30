@@ -284,11 +284,17 @@ body{
 
     box-shadow:0 5px 15px rgba(0,0,0,.08);
 
+    transition:0.3s ease;
+
+    cursor:pointer;
+
 }
 
 .card:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-6px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,0.15);
 
 }
 
@@ -311,24 +317,6 @@ body{
 .card p{
 
     color:#666;
-
-}
-.card{
-
-    transition:0.3s ease;
-
-}
-
-.card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:0 10px 20px rgba(0,0,0,0.15);
-
-}
-.card{
-
-    cursor:pointer;
 
 }
 
@@ -382,11 +370,6 @@ body{
 }
 .user-toolbar input{
 
-    width:450px;
-
-}
-.user-toolbar input{
-
     width:350px;
 
     padding:12px;
@@ -408,6 +391,24 @@ body{
     border-radius:8px;
 
 }
+@media(max-width:992px){
+
+.main{
+
+    margin-left:0;
+
+    width:100%;
+
+}
+
+.sidebar{
+
+    width:220px;
+
+}
+
+}
+
 @media(max-width:1200px){
 
 .cards{
@@ -639,6 +640,10 @@ tbody tr:hover{
 
     width:450px;
 
+    max-height:90vh;
+
+    overflow-y:auto;
+
     background:white;
 
     border-radius:15px;
@@ -646,6 +651,31 @@ tbody tr:hover{
     padding:30px;
 
     animation:popup .3s ease;
+
+}
+
+.modal-content label{
+
+    display:block;
+
+    margin-top:10px;
+
+    margin-bottom:5px;
+
+    font-size:16px;
+
+    font-weight:500;
+
+}
+
+.modal-content input,
+.modal-content select{
+
+    width:100%;
+
+    padding:10px;
+
+    margin-bottom:8px;
 
 }
 

@@ -35,6 +35,8 @@ function closeModal(){
 
     document.getElementById("modalTitle").innerText = "Add New User";
 
+    editRow = null;
+
 }
 
 
