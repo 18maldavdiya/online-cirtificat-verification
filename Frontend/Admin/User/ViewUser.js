@@ -6,23 +6,23 @@ const viewModal = document.getElementById("viewModal");
 
 const closeView = document.querySelector(".close-view");
 
-userTable.addEventListener("click", function(event){
+document.getElementById("userTable").addEventListener("click", function(event){
 
     if(event.target.closest(".view")){
 
         const row = event.target.closest("tr");
+        const id = row.dataset.id;
+        const user = currentUsers.find((u) => u.id === id);
 
-        const data = row.querySelectorAll("td");
+        if (!user) {
+            return;
+        }
 
-        document.getElementById("viewId").innerText = data[0].innerText;
-
-        document.getElementById("viewName").innerText = data[1].innerText;
-
-        document.getElementById("viewEmail").innerText = data[2].innerText;
-
-        document.getElementById("viewRole").innerText = data[3].innerText;
-
-        document.getElementById("viewStatus").innerText = data[4].innerText;
+        document.getElementById("viewId").innerText = "#" + user.id.slice(-8).toUpperCase();
+        document.getElementById("viewName").innerText = user.name;
+        document.getElementById("viewEmail").innerText = user.email;
+        document.getElementById("viewRole").innerText = ROLE_API_TO_DISPLAY[user.role] || user.role;
+        document.getElementById("viewStatus").innerText = user.status;
 
         viewModal.style.display = "flex";
 

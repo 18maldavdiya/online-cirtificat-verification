@@ -173,7 +173,7 @@
 
                     <div>
 
-                        <h2>10</h2>
+                        <h2 id="statTotalCertificates">—</h2>
 
                         <p>Total Certificates</p>
 
@@ -188,7 +188,7 @@
 
                     <div>
 
-                        <h2>6</h2>
+                        <h2 id="statVerifiedCertificates">—</h2>
 
                         <p>Verified Certificates</p>
 
@@ -203,7 +203,7 @@
 
                     <div>
 
-                        <h2>3</h2>
+                        <h2 id="statPendingCertificates">—</h2>
 
                         <p>Pending Certificates</p>
 
@@ -218,7 +218,7 @@
 
                     <div>
 
-                        <h2>1</h2>
+                        <h2 id="statRevokedCertificates">—</h2>
 
                         <p>Revoked Certificates</p>
 
@@ -235,7 +235,7 @@
 
                 <input type="text" id="searchCertificate" placeholder="Search Certificate...">
 
-                <select id="roleFilter">
+                <select id="courseFilter">
 
                     <option>All Courses</option>
 
@@ -257,15 +257,15 @@
                 </select>
 
 
-                <select id="filterStatus">
+                <select id="statusFilter">
 
                     <option>All Status</option>
 
                     <option>Verified</option>
 
-                    <option>Inactive</option>
-
                     <option>Pending</option>
+
+                    <option>Revoked</option>
 
                 </select>
 
@@ -280,7 +280,7 @@
 
                     <h2>Issued Certificates</h2>
 
-                    <span>Total : 10 Certificates</span>
+                    <span id="certificateCountLabel">Total : 0 Certificates</span>
 
                 </div>
 
@@ -310,143 +310,9 @@
                     <tbody id="certificateTable">
 
                         <tr>
-                            <td>CERT001</td>
-                            <td>Rahul Sharma</td>
-                            <td>Java Full Stack</td>
-                            <td>SAGE University</td>
-                            <td>10-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <td>CERT002</td>
-                            <td>Priya Patel</td>
-                            <td>Web Development</td>
-                            <td>ABC Institute</td>
-                            <td>12-06-2026</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
+                            <td colspan="7">Loading certificates...</td>
 
-                        <tr>
-                            <td>CERT003</td>
-                            <td>Aman Verma</td>
-                            <td>Python Programming</td>
-                            <td>Tech Academy</td>
-                            <td>15-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT004</td>
-                            <td>Neha Singh</td>
-                            <td>Data Analytics</td>
-                            <td>Bright Future College</td>
-                            <td>18-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT005</td>
-                            <td>Rohit Gupta</td>
-                            <td>Machine Learning</td>
-                            <td>Global Skill Center</td>
-                            <td>20-06-2026</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT006</td>
-                            <td>Anjali Joshi</td>
-                            <td>UI/UX Design</td>
-                            <td>National Training Institute</td>
-                            <td>22-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT007</td>
-                            <td>Vikas Kumar</td>
-                            <td>Cloud Computing</td>
-                            <td>Future Vision Academy</td>
-                            <td>24-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT008</td>
-                            <td>Sneha Jain</td>
-                            <td>Cyber Security</td>
-                            <td>SkillUp Institute</td>
-                            <td>26-06-2026</td>
-                            <td><span class="status revoked">Revoked</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT009</td>
-                            <td>Arjun Mehta</td>
-                            <td>React JS</td>
-                            <td>Digital Learning Hub</td>
-                            <td>27-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>CERT010</td>
-                            <td>Pooja Sharma</td>
-                            <td>Node.js Development</td>
-                            <td>NextGen Education</td>
-                            <td>28-06-2026</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
                         </tr>
 
                     </tbody>
@@ -517,26 +383,6 @@
 
                             <option value="">Select Organization</option>
 
-                            <option>SAGE University</option>
-
-                            <option>ABC Institute</option>
-
-                            <option>Tech Academy</option>
-
-                            <option>Bright Future College</option>
-
-                            <option>Global Skill Center</option>
-
-                            <option>National Training Institute</option>
-
-                            <option>Future Vision Academy</option>
-
-                            <option>SkillUp Institute</option>
-
-                            <option>Digital Learning Hub</option>
-
-                            <option>NextGen Education</option>
-
                         </select>
 
                         <label>Issue Date</label>
@@ -599,10 +445,24 @@
 
         </div>
 
+        <div class="qr-preview" style="text-align:center; margin-top:15px;">
+
+            <img id="viewQrCode" src="" alt="Certificate QR Code" style="max-width:150px; display:none;">
+
+        </div>
+
+        <div class="modal-buttons">
+
+            <button type="button" class="save-btn" id="downloadPdfBtn">Download PDF</button>
+
+        </div>
+
     </div>
 
 </div>
         </div>
+        <script src="../../api.js"></script>
+
         <script src="../admin.js"></script>
 
         <script src="certificate.js"></script>

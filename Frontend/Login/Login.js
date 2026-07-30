@@ -8,16 +8,34 @@ const email = document.getElementById("email");
 
 const password = document.getElementById("password");
 
+const loginError = document.getElementById("loginError");
+
+const submitBtn = document.getElementById("loginSubmitBtn");
+
+const ROLE_REDIRECTS = {
+    admin: "../Admin/dashboard.html",
+    organization: "../Organization/dashboard.html",
+    user: "../User/dashboard.html",
+};
+
+// If already logged in, skip straight to the right dashboard.
+(function redirectIfAlreadyLoggedIn() {
+    const existingUser = CV.getUser();
+    if (CV.getToken() && existingUser && ROLE_REDIRECTS[existingUser.role]) {
+        window.location.href = ROLE_REDIRECTS[existingUser.role];
+    }
+})();
 
 // ==============================
 // Login Event
 // ==============================
 
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", async function (event) {
 
     // Stop page from refreshing
     event.preventDefault();
 
+    loginError.textContent = "";
 
     // Get user input
 
@@ -25,57 +43,33 @@ form.addEventListener("submit", function(event){
 
     const userPassword = password.value.trim();
 
-
     // Empty Validation
 
-    if(userEmail === "" || userPassword === ""){
+    if (userEmail === "" || userPassword === "") {
 
-        alert("Please fill all fields.");
+        loginError.textContent = "Please fill all fields.";
 
         return;
 
     }
 
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Logging in...";
 
-    // ==============================
-    // Dummy Login
-    // ==============================
+    try {
+        const data = await CV.apiFetch("/auth/login", {
+            method: "POST",
+            body: { email: userEmail, password: userPassword },
+        });
 
-    if(userEmail === "admin@gmail.com"
-        &&
-        userPassword === "12345"){
+        CV.setSession(data.token, data.user);
 
-        alert("Welcome Admin");
-
-        window.location.href="../Admin/dashboard.html";
-
-    }
-
-    else if(userEmail === "college@gmail.com"
-        &&
-        userPassword === "12345"){
-
-        alert("Welcome Organization");
-
-        window.location.href="../Organization/dashboard.html";
-
-    }
-
-    else if(userEmail === "student@gmail.com"
-        &&
-        userPassword === "12345"){
-
-        alert("Welcome Student");
-
-        window.location.href="../User/dashboard.html";
-
-    }
-
-    else{
-
-        alert("Invalid Email or Password");
-
+        const destination = ROLE_REDIRECTS[data.user.role];
+        window.location.href = destination || "../LangingPage/index.html";
+    } catch (error) {
+        loginError.textContent = error.message || "Invalid Email or Password";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Login";
     }
 
 });
-

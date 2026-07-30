@@ -173,7 +173,7 @@
 
                     <div>
 
-                        <h2>25</h2>
+                        <h2 id="statTotalOrganizations">—</h2>
 
                         <p>Total Organizations</p>
 
@@ -188,7 +188,7 @@
 
                     <div>
 
-                        <h2>20</h2>
+                        <h2 id="statVerifiedOrganizations">—</h2>
 
                         <p>Verified Organizations</p>
 
@@ -203,7 +203,7 @@
 
                     <div>
 
-                        <h2>3</h2>
+                        <h2 id="statPendingOrganizations">—</h2>
 
                         <p>Pending Approval</p>
 
@@ -218,7 +218,7 @@
 
                     <div>
 
-                        <h2>2</h2>
+                        <h2 id="statInactiveOrganizations">—</h2>
 
                         <p>Inactive Organizations</p>
 
@@ -235,7 +235,7 @@
 
                 <input type="text" id="searchOrganization" placeholder="Search Organization...">
 
-                <select id="roleFilter">
+                <select id="typeFilter">
 
                     <option>All Types</option>
 
@@ -274,7 +274,7 @@
 
                     <h2>Registered Organizations</h2>
 
-                    <span>Total : 10 Organizations</span>
+                    <span id="organizationCountLabel">Total : 0 Organizations</span>
 
                 </div>
 
@@ -303,134 +303,11 @@
                     <tbody id="organizationTable">
 
                         <tr>
-                            <td>ORG001</td>
-                            <td>SAGE University</td>
-                            <td>admin@sage.edu</td>
-                            <td>9876543210</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
+
+                            <td colspan="6">Loading organizations...</td>
+
                         </tr>
 
-                        <tr>
-                            <td>ORG002</td>
-                            <td>ABC Institute</td>
-                            <td>contact@abcinstitute.com</td>
-                            <td>9876543211</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG003</td>
-                            <td>Tech Academy</td>
-                            <td>info@techacademy.com</td>
-                            <td>9876543212</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG004</td>
-                            <td>Bright Future College</td>
-                            <td>admin@brightfuture.edu</td>
-                            <td>9876543213</td>
-                            <td><span class="status inactive">Inactive</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG005</td>
-                            <td>Global Skill Center</td>
-                            <td>support@globalskill.com</td>
-                            <td>9876543214</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG006</td>
-                            <td>National Training Institute</td>
-                            <td>contact@nti.org</td>
-                            <td>9876543215</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG007</td>
-                            <td>Future Vision Academy</td>
-                            <td>info@futurevision.edu</td>
-                            <td>9876543216</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG008</td>
-                            <td>SkillUp Institute</td>
-                            <td>admin@skillup.org</td>
-                            <td>9876543217</td>
-                            <td><span class="status inactive">Inactive</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG009</td>
-                            <td>Digital Learning Hub</td>
-                            <td>hello@dlhub.com</td>
-                            <td>9876543218</td>
-                            <td><span class="status verified">Verified</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>ORG010</td>
-                            <td>NextGen Education</td>
-                            <td>contact@nextgen.edu</td>
-                            <td>9876543219</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
                     </tbody>
 
                 </table>
@@ -537,6 +414,8 @@
 
             </div>
         </div>
+        <script src="../../api.js"></script>
+
         <script src="../admin.js"></script>
 
         <script src="organization.js"></script>

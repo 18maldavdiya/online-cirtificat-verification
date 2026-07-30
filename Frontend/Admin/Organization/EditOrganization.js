@@ -2,25 +2,33 @@
 // Edit Organization
 // ======================================
 
-let editRow = null;
-
-organizationTable.addEventListener("click", function(event){
+document.getElementById("organizationTable").addEventListener("click", function(event){
 
     if(event.target.closest(".edit")){
 
-        editRow = event.target.closest("tr");
+        const row = event.target.closest("tr");
+        const id = row.dataset.id;
+        const org = currentOrganizations.find((o) => o.id === id);
 
-        document.getElementById("organizationName").value =
-        editRow.cells[1].innerText;
+        if (!org) {
+            return;
+        }
 
-        document.getElementById("organizationEmail").value =
-        editRow.cells[2].innerText;
+        editingOrganizationId = id;
 
-        document.getElementById("organizationPhone").value =
-        editRow.cells[3].innerText;
+        document.getElementById("organizationName").value = org.name;
 
-        document.getElementById("organizationStatus").value =
-        editRow.cells[4].innerText.trim();
+        document.getElementById("organizationEmail").value = org.email;
+
+        document.getElementById("organizationPhone").value = org.phone;
+
+        document.getElementById("organizationAddress").value = org.address || "";
+
+        document.getElementById("organizationType").value = org.type;
+
+        document.getElementById("organizationStatus").value = org.status;
+
+        document.getElementById("modalTitle").innerText = "Edit Organization";
 
         modal.style.display = "flex";
 

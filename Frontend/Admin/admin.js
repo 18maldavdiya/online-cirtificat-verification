@@ -1,4 +1,34 @@
 // ===============================
+// Auth Guard + Current User
+// ===============================
+
+// admin.js is shared by every Admin page at every nesting depth (Admin/,
+// Admin/Certificate/, Admin/User/, ...), so the relative path back to Login
+// is computed from the current URL rather than hardcoded.
+function getLoginPath() {
+    const marker = "/Admin/";
+    const path = window.location.pathname;
+    const idx = path.indexOf(marker);
+    if (idx === -1) {
+        return "../Login/Login.html";
+    }
+    const afterAdmin = path.slice(idx + marker.length);
+    const depth = afterAdmin.split("/").length - 1;
+    return "../".repeat(depth + 1) + "Login/Login.html";
+}
+
+const LOGIN_PATH = getLoginPath();
+
+const currentAdminUser = CV.requireAuth(["admin"], LOGIN_PATH);
+
+if (currentAdminUser) {
+    const profileNameEl = document.querySelector(".admin-profile span");
+    if (profileNameEl) {
+        profileNameEl.textContent = currentAdminUser.name;
+    }
+}
+
+// ===============================
 // Active Sidebar Menu
 // ===============================
 
@@ -27,13 +57,15 @@ menuItems.forEach((item)=>{
 
 const logout = document.querySelector(".logout-item");
 
-logout.addEventListener("click",()=>{
+logout.addEventListener("click",(event)=>{
+
+    event.preventDefault();
 
     const answer = confirm("Are you sure you want to logout?");
 
     if(answer){
 
-        window.location.href="../Login/Login.html";
+        CV.logout(LOGIN_PATH);
 
     }
 

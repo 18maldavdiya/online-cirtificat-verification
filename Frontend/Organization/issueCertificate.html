@@ -41,33 +41,33 @@
             <div class="page-header">
                 <div>
                     <h1>Issue Certificate</h1>
-                    <p>Create a new certificate record with sample organization details.</p>
+                    <p>Create a new certificate record for your organization.</p>
                 </div>
                 <a href="manageCertificates.html" class="primary-btn"><i class="fa-solid fa-list"></i> View Certificates</a>
             </div>
 
             <div class="form-card">
-                <form>
+                <form id="issueCertificateForm">
                     <div class="form-grid">
                         <div>
                             <label>Recipient Name</label>
-                            <input type="text" value="Sarah Khan">
+                            <input type="text" id="recipientName" required>
                         </div>
                         <div>
                             <label>Email</label>
-                            <input type="email" value="sarah.khan@example.com">
+                            <input type="email" id="recipientEmail" required>
                         </div>
                         <div>
                             <label>Course / Program</label>
-                            <input type="text" value="Advanced Cybersecurity">
+                            <input type="text" id="course" required>
                         </div>
                         <div>
                             <label>Issue Date</label>
-                            <input type="date" value="2026-07-18">
+                            <input type="date" id="issueDate" required>
                         </div>
                         <div>
                             <label>Certificate Type</label>
-                            <select>
+                            <select id="certificateType">
                                 <option>Completion</option>
                                 <option>Achievement</option>
                                 <option>Participation</option>
@@ -75,22 +75,24 @@
                         </div>
                         <div>
                             <label>Status</label>
-                            <select>
+                            <select id="certificateStatus">
                                 <option>Pending Review</option>
                                 <option>Verified</option>
                                 <option>Draft</option>
                             </select>
                         </div>
                     </div>
+                    <p id="issueCertificateError" class="form-error" style="color:#dc2626; min-height:17px;"></p>
                     <div class="form-actions">
-                        <button type="button" class="secondary-btn">Save Draft</button>
-                        <button type="submit" class="primary-btn">Issue Certificate</button>
+                        <button type="button" class="secondary-btn" id="saveDraftBtn">Save Draft</button>
+                        <button type="submit" class="primary-btn" id="issueCertificateBtn">Issue Certificate</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <script src="../api.js"></script>
     <script src="organization-dashboard.js"></script>
 </body>
 </html>

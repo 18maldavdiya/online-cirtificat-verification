@@ -49,15 +49,37 @@
             <div class="settings-container">
                 <div class="settings-card">
                     <h2><i class="fa-solid fa-user"></i> Admin Profile</h2>
-                    <p><strong>Name:</strong> Admin</p>
-                    <p><strong>Email:</strong> admin@certiverify.com</p>
-                    <p><strong>Role:</strong> Administrator</p>
-                    <p><strong>Status:</strong> Active</p>
+                    <p><strong>Name:</strong> <span id="profileName">—</span></p>
+                    <p><strong>Email:</strong> <span id="profileEmail">—</span></p>
+                    <p><strong>Role:</strong> <span id="profileRole">—</span></p>
+                    <p><strong>Status:</strong> <span id="profileStatus">—</span></p>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="../api.js"></script>
     <script src="admin.js"></script>
+    <script>
+        (async function () {
+            const nameEl = document.getElementById("profileName");
+            const emailEl = document.getElementById("profileEmail");
+            const roleEl = document.getElementById("profileRole");
+            const statusEl = document.getElementById("profileStatus");
+
+            try {
+                const currentUser = CV.getUser();
+                const data = await CV.apiFetch("/users/" + currentUser.id);
+                nameEl.textContent = data.user.name;
+                emailEl.textContent = data.user.email;
+                roleEl.textContent = data.user.role.charAt(0).toUpperCase() + data.user.role.slice(1);
+                statusEl.textContent = data.user.status;
+            } catch (error) {
+                nameEl.textContent = "Unable to load";
+                nameEl.style.color = "#dc2626";
+                console.error(error);
+            }
+        })();
+    </script>
 </body>
 </html>

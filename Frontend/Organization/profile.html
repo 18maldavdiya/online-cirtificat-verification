@@ -51,12 +51,12 @@
                     <div class="profile-avatar">
                         <i class="fa-solid fa-building-columns"></i>
                     </div>
-                    <h3>Northstar Academy</h3>
-                    <p>Education Partner</p>
+                    <h3 id="profileOrgName">—</h3>
+                    <p id="profileOrgType">Education Partner</p>
                     <div class="profile-details">
-                        <p><strong>Contact:</strong> info@northstar.edu</p>
-                        <p><strong>Phone:</strong> +94 77 123 4567</p>
-                        <p><strong>Address:</strong> 22, Colombo Road, Sri Lanka</p>
+                        <p><strong>Contact:</strong> <span id="profileOrgEmail">—</span></p>
+                        <p><strong>Phone:</strong> <span id="profileOrgPhone">—</span></p>
+                        <p><strong>Address:</strong> <span id="profileOrgAddress">—</span></p>
                     </div>
                 </div>
 
@@ -65,15 +65,16 @@
                         <h3>Account Summary</h3>
                     </div>
                     <ul class="activity-list">
-                        <li><strong>Subscription</strong><span>Premium</span></li>
-                        <li><strong>Active Certificates</strong><span>128</span></li>
-                        <li><strong>Last Updated</strong><span>2 days ago</span></li>
+                        <li><strong>Status</strong><span id="profileOrgStatus">—</span></li>
+                        <li><strong>Verified Certificates</strong><span id="profileOrgVerifiedCount">—</span></li>
+                        <li><strong>Last Updated</strong><span id="profileOrgUpdated">—</span></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="../api.js"></script>
     <script src="organization-dashboard.js"></script>
 </body>
 </html>

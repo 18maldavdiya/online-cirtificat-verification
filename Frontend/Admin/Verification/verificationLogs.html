@@ -166,7 +166,7 @@
 
                     <div>
 
-                        <h2>10</h2>
+                        <h2 id="statTotalLogs">—</h2>
 
                         <p>Total Verifications</p>
 
@@ -181,7 +181,7 @@
 
                     <div>
 
-                        <h2>7</h2>
+                        <h2 id="statSuccessLogs">—</h2>
 
                         <p>Successful Verifications</p>
 
@@ -196,7 +196,7 @@
 
                     <div>
 
-                        <h2>3</h2>
+                        <h2 id="statFailedLogs">—</h2>
 
                         <p>Failed Verifications</p>
 
@@ -211,7 +211,7 @@
 
                     <div>
 
-                        <h2>10</h2>
+                        <h2 id="statTodayLogs">—</h2>
 
                         <p>Today's Verifications</p>
 
@@ -242,6 +242,8 @@
 
                 <select id="dateFilter">
 
+                    <option>All Dates</option>
+
                     <option>Today</option>
 
                     <option>This Week</option>
@@ -261,7 +263,7 @@
 
                     <h2>Verification Logs</h2>
 
-                    <span>Total : 10 Logs</span>
+                    <span id="logsCountLabel">Total : 0 Logs</span>
 
                 </div>
 
@@ -290,113 +292,9 @@
                     <tbody id="logsTable">
 
                         <tr>
-                            <td>LOG001</td>
-                            <td>CERT001</td>
-                            <td>Admin</td>
-                            <td>29-06-2026 10:15 AM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
 
-                        <tr>
-                            <td>LOG002</td>
-                            <td>CERT002</td>
-                            <td>Organization Admin</td>
-                            <td>29-06-2026 10:45 AM</td>
-                            <td><span class="status pending">Failed</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
+                            <td colspan="6">Loading verification logs...</td>
 
-                        <tr>
-                            <td>LOG003</td>
-                            <td>CERT003</td>
-                            <td>Admin</td>
-                            <td>29-06-2026 11:20 AM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG004</td>
-                            <td>CERT004</td>
-                            <td>Verifier</td>
-                            <td>29-06-2026 12:05 PM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG005</td>
-                            <td>CERT005</td>
-                            <td>Organization Admin</td>
-                            <td>29-06-2026 12:40 PM</td>
-                            <td><span class="status pending">Failed</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG006</td>
-                            <td>CERT006</td>
-                            <td>Admin</td>
-                            <td>29-06-2026 01:15 PM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG007</td>
-                            <td>CERT007</td>
-                            <td>Verifier</td>
-                            <td>29-06-2026 02:00 PM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG008</td>
-                            <td>CERT008</td>
-                            <td>Admin</td>
-                            <td>29-06-2026 02:35 PM</td>
-                            <td><span class="status pending">Failed</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG009</td>
-                            <td>CERT009</td>
-                            <td>Organization Admin</td>
-                            <td>29-06-2026 03:10 PM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>LOG010</td>
-                            <td>CERT010</td>
-                            <td>Admin</td>
-                            <td>29-06-2026 04:00 PM</td>
-                            <td><span class="status verified">Success</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                            </td>
                         </tr>
 
                     </tbody>
@@ -451,6 +349,7 @@
 
             </div>
         </div>
+        <script src="../../api.js"></script>
         <script src="../admin.js"></script>
         <script src="verificationLogs.js"></script>
         <script src="SearchLogs.js"></script>

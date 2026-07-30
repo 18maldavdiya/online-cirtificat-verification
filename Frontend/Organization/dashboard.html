@@ -50,28 +50,28 @@
                 <div class="card">
                     <i class="fa-solid fa-certificate"></i>
                     <div>
-                        <h2>148</h2>
+                        <h2 id="statTotalCertificates">—</h2>
                         <p>Total Certificates</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-circle-check"></i>
                     <div>
-                        <h2>132</h2>
+                        <h2 id="statVerifiedCertificates">—</h2>
                         <p>Verified</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-user-check"></i>
                     <div>
-                        <h2>16</h2>
+                        <h2 id="statPendingCertificates">—</h2>
                         <p>Pending Review</p>
                     </div>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-clock"></i>
                     <div>
-                        <h2>4</h2>
+                        <h2 id="statExpiringSoon">—</h2>
                         <p>Expiring Soon</p>
                     </div>
                 </div>
@@ -101,16 +101,15 @@
                     <div class="section-header">
                         <h3>Recent Activity</h3>
                     </div>
-                    <ul class="activity-list">
-                        <li><strong>5 new verifications</strong><span>12 mins ago</span></li>
-                        <li><strong>Certificate issued to Sarah Khan</strong><span>1 hour ago</span></li>
-                        <li><strong>System notice updated</strong><span>Yesterday</span></li>
+                    <ul class="activity-list" id="recentActivityList">
+                        <li><strong>Loading recent activity...</strong></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="../api.js"></script>
     <script src="organization-dashboard.js"></script>
 </body>
 </html>

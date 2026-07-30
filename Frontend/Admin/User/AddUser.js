@@ -1,16 +1,13 @@
 // ======================================
 // AddUser.js
-// Add New User
+// Add New User / Save edits (shared form submit)
 // ======================================
 
 const userForm = document.getElementById("userForm");
-const userTable = document.getElementById("userTable");
-
-let userCount = 11;
 
 // Form Submit
 
-userForm.addEventListener("submit", function (event) {
+userForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
@@ -22,14 +19,14 @@ userForm.addEventListener("submit", function (event) {
 
     const password = document.getElementById("password").value.trim();
 
-    const role = document.getElementById("role").value;
+    const roleDisplay = document.getElementById("role").value;
 
-    const status = document.getElementById("status").value;
+    const statusDisplay = document.getElementById("status").value;
 
 
     // Validation
 
-    if (name === "" || email === "" || password === "") {
+    if (name === "" || email === "" || (!editingUserId && password === "")) {
 
         alert("Please fill all fields.");
 
@@ -37,115 +34,43 @@ userForm.addEventListener("submit", function (event) {
 
     }
 
+    const submitBtn = userForm.querySelector(".save-btn");
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Saving...";
 
-    // Status Class
+    const payload = {
+        name,
+        email,
+        role: ROLE_DISPLAY_TO_API[roleDisplay],
+        status: statusDisplay,
+    };
 
-    let statusClass = "";
-
-    if (status === "Active") {
-
-        statusClass = "active";
-
+    if (password !== "") {
+        payload.password = password;
     }
 
-    else if (status === "Inactive") {
+    try {
+        if (editingUserId) {
+            await CV.apiFetch("/users/" + editingUserId, { method: "PUT", body: payload });
+            alert("User Updated Successfully!");
+        } else {
+            await CV.apiFetch("/users", { method: "POST", body: payload });
+            alert("User Saved Successfully!");
+        }
 
-        statusClass = "inactive";
+        userForm.reset();
+        document.getElementById("modalTitle").innerText = "Add New User";
+        editingUserId = null;
+        modal.style.display = "none";
 
+        loadUserStats();
+        loadUsers();
+    } catch (error) {
+        alert(error.message || "Something went wrong. Please try again.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     }
-
-    else {
-
-        statusClass = "pending";
-
-    }
-
-
-    // Create Row
-
-    const newRow = document.createElement("tr");
-
-    newRow.innerHTML = `
-
-        <td>U${userCount}</td>
-
-        <td>${name}</td>
-
-        <td>${email}</td>
-
-        <td>${role}</td>
-
-        <td>
-
-            <span class="status ${statusClass}">
-
-                ${status}
-
-            </span>
-
-        </td>
-
-        <td>
-
-            <button class="view">
-
-                <i class="fa-solid fa-eye"></i>
-
-            </button>
-
-            <button class="edit">
-
-                <i class="fa-solid fa-pen"></i>
-
-            </button>
-
-            <button class="delete">
-
-                <i class="fa-solid fa-trash"></i>
-
-            </button>
-
-        </td>
-
-    `;
-
-
-    // Add Row
-
-    // Add or Update User
-
-    if (editRow === null) {
-
-        userTable.appendChild(newRow);
-
-        userCount++;
-
-    }
-    else {
-
-        editRow.cells[1].innerText = name;
-
-        editRow.cells[2].innerText = email;
-
-        editRow.cells[3].innerText = role;
-
-        editRow.cells[4].innerHTML =
-
-            `<span class="status ${statusClass}">
-            ${status}
-        </span>`;
-
-        editRow = null;
-
-    }
-
-
-    userForm.reset();
-
-    document.getElementById("modalTitle").innerText = "Add New User";
-
-    modal.style.display = "none";
-
-    alert("User Saved Successfully!");
 
 });

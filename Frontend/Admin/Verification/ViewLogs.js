@@ -2,32 +2,25 @@
 // ViewLogs.js
 // ======================================
 
-const viewLogsTable = document.getElementById("logsTable");
-
-const logsViewModal = document.getElementById("viewModal");
-
-viewLogsTable.addEventListener("click", function(event){
+document.getElementById("logsTable").addEventListener("click", function(event){
 
     if(event.target.closest(".view")){
 
         const row = event.target.closest("tr");
+        const id = row.dataset.id;
+        const log = currentLogs.find((l) => l.id === id);
 
-        document.getElementById("viewLogId").innerText =
-        row.cells[0].innerText;
+        if (!log) {
+            return;
+        }
 
-        document.getElementById("viewCertificateId").innerText =
-        row.cells[1].innerText;
+        document.getElementById("viewLogId").innerText = "#" + log.id.slice(-8).toUpperCase();
+        document.getElementById("viewCertificateId").innerText = log.certificate ? log.certificate.certificateId : (log.attemptedCode || "Unknown");
+        document.getElementById("viewVerifiedBy").innerText = log.verifierName || "Public User";
+        document.getElementById("viewVerificationDate").innerText = formatLogDate(log.createdAt);
+        document.getElementById("viewResult").innerText = log.result;
 
-        document.getElementById("viewVerifiedBy").innerText =
-        row.cells[2].innerText;
-
-        document.getElementById("viewVerificationDate").innerText =
-        row.cells[3].innerText;
-
-        document.getElementById("viewResult").innerText =
-        row.cells[4].innerText;
-
-        logsViewModal.style.display = "flex";
+        document.getElementById("viewModal").style.display = "flex";
 
     }
 

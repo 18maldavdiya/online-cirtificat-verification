@@ -2,30 +2,35 @@
 // EditCertificate.js
 // ======================================
 
-let editRow = null;
-
-const editTable = document.getElementById("certificateTable");
-
-editTable.addEventListener("click", function(event){
+document.getElementById("certificateTable").addEventListener("click", async function(event){
 
     if(event.target.closest(".edit")){
 
-        editRow = event.target.closest("tr");
+        const row = event.target.closest("tr");
+        const id = row.dataset.id;
+        const cert = currentCertificates.find((c) => c.id === id);
 
-        document.getElementById("studentName").value =
-        editRow.cells[1].innerText;
+        if (!cert) {
+            return;
+        }
 
-        document.getElementById("courseName").value =
-        editRow.cells[2].innerText;
+        editingCertificateId = id;
 
-        document.getElementById("organizationName").value =
-        editRow.cells[3].innerText;
+        await loadOrganizationsForForm();
 
-        document.getElementById("issueDate").value =
-        editRow.cells[4].innerText;
+        document.getElementById("studentName").value = cert.recipientName;
 
-        document.getElementById("certificateStatus").value =
-        editRow.cells[5].innerText.trim();
+        document.getElementById("studentEmail").value = cert.recipientEmail;
+
+        document.getElementById("courseName").value = cert.course;
+
+        document.getElementById("organizationName").value = cert.organization;
+
+        document.getElementById("issueDate").value = cert.issueDate ? cert.issueDate.slice(0, 10) : "";
+
+        document.getElementById("certificateStatus").value = cert.status;
+
+        document.getElementById("modalTitle").innerText = "Edit Certificate";
 
         modal.style.display = "flex";
 

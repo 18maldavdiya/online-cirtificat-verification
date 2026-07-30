@@ -804,6 +804,25 @@ nav ul li{
 
 }
 
+#verifyCertificateResult{
+
+    margin-top:20px;
+    font-weight:600;
+
+}
+
+#verifyCertificateResult.valid{
+
+    color:#16a34a;
+
+}
+
+#verifyCertificateResult.invalid{
+
+    color:#dc2626;
+
+}
+
 form{
 
     width:600px;

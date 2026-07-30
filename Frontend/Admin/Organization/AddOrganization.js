@@ -1,13 +1,11 @@
 // ======================================
 // AddOrganization.js
+// Add New Organization / Save edits (shared form submit)
 // ======================================
 
 const organizationForm = document.getElementById("organizationForm");
-const organizationTable = document.getElementById("organizationTable");
 
-let organizationCount = 11;
-
-organizationForm.addEventListener("submit", function (event) {
+organizationForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
@@ -15,94 +13,44 @@ organizationForm.addEventListener("submit", function (event) {
     const email = document.getElementById("organizationEmail").value.trim();
     const phone = document.getElementById("organizationPhone").value.trim();
     const address = document.getElementById("organizationAddress").value.trim();
+    const type = document.getElementById("organizationType").value;
     const status = document.getElementById("organizationStatus").value;
 
-    if (name === "" || email === "" || phone === "" || address === "") {
+    if (name === "" || email === "" || phone === "") {
 
         alert("Please fill all fields.");
         return;
 
     }
 
-    let statusClass = "";
+    const submitBtn = organizationForm.querySelector(".save-btn");
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Saving...";
 
-    if (status === "Verified") {
+    const payload = { name, email, phone, address, type, status };
 
-        statusClass = "verified";
+    try {
+        if (editingOrganizationId) {
+            await CV.apiFetch("/organizations/" + editingOrganizationId, { method: "PUT", body: payload });
+            alert("Organization Updated Successfully!");
+        } else {
+            await CV.apiFetch("/organizations", { method: "POST", body: payload });
+            alert("Organization Added Successfully!");
+        }
 
-    } else if (status === "Pending") {
-
-        statusClass = "pending";
-
-    } else {
-
-        statusClass = "inactive";
-
-    }
-
-    // ==========================
-    // Edit Organization
-    // ==========================
-
-    if (editRow) {
-
-        editRow.cells[1].innerText = name;
-        editRow.cells[2].innerText = email;
-        editRow.cells[3].innerText = phone;
-
-        editRow.cells[4].innerHTML =
-            `<span class="status ${statusClass}">${status}</span>`;
-
-        editRow = null;
-
+        editingOrganizationId = null;
         organizationForm.reset();
-
+        document.getElementById("modalTitle").innerText = "Add Organization";
         modal.style.display = "none";
 
-        alert("Organization Updated Successfully!");
-
-        return;
+        loadOrganizationStats();
+        loadOrganizations();
+    } catch (error) {
+        alert(error.message || "Something went wrong. Please try again.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     }
-
-    // ==========================
-    // Add New Organization
-    // ==========================
-
-    const newRow = document.createElement("tr");
-
-    newRow.innerHTML = `
-        <td>ORG${organizationCount}</td>
-        <td>${name}</td>
-        <td>${email}</td>
-        <td>${phone}</td>
-        <td>
-            <span class="status ${statusClass}">
-                ${status}
-            </span>
-        </td>
-        <td>
-            <button class="view">
-                <i class="fa-solid fa-eye"></i>
-            </button>
-
-            <button class="edit">
-                <i class="fa-solid fa-pen"></i>
-            </button>
-
-            <button class="delete">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-        </td>
-    `;
-
-    organizationTable.appendChild(newRow);
-
-    organizationCount++;
-
-    organizationForm.reset();
-
-    modal.style.display = "none";
-
-    alert("Organization Added Successfully!");
 
 });

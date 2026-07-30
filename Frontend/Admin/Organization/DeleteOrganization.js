@@ -2,23 +2,25 @@
 // DeleteOrganization.js
 // ======================================
 
-// Event Delegation
-
-organizationTable.addEventListener("click", function(event){
-
-    // Delete Button Click
+document.getElementById("organizationTable").addEventListener("click", async function(event){
 
     if(event.target.closest(".delete")){
+
+        const row = event.target.closest("tr");
+        const id = row.dataset.id;
 
         const confirmDelete = confirm("Are you sure you want to delete this organization?");
 
         if(confirmDelete){
 
-            const row = event.target.closest("tr");
-
-            row.remove();
-
-            alert("Organization Deleted Successfully!");
+            try {
+                await CV.apiFetch("/organizations/" + id, { method: "DELETE" });
+                alert("Organization Deleted Successfully!");
+                loadOrganizationStats();
+                loadOrganizations();
+            } catch (error) {
+                alert(error.message || "Failed to delete organization.");
+            }
 
         }
 

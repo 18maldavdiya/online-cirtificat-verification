@@ -6,26 +6,23 @@ const viewModal = document.getElementById("viewModal");
 
 const closeView = document.querySelector(".close-view");
 
-organizationTable.addEventListener("click", function(event){
+document.getElementById("organizationTable").addEventListener("click", function(event){
 
     if(event.target.closest(".view")){
 
         const row = event.target.closest("tr");
+        const id = row.dataset.id;
+        const org = currentOrganizations.find((o) => o.id === id);
 
-        document.getElementById("viewOrganizationId").innerText =
-        row.cells[0].innerText;
+        if (!org) {
+            return;
+        }
 
-        document.getElementById("viewOrganizationName").innerText =
-        row.cells[1].innerText;
-
-        document.getElementById("viewOrganizationEmail").innerText =
-        row.cells[2].innerText;
-
-        document.getElementById("viewOrganizationPhone").innerText =
-        row.cells[3].innerText;
-
-        document.getElementById("viewOrganizationStatus").innerText =
-        row.cells[4].innerText;
+        document.getElementById("viewOrganizationId").innerText = "#" + org.id.slice(-8).toUpperCase();
+        document.getElementById("viewOrganizationName").innerText = org.name;
+        document.getElementById("viewOrganizationEmail").innerText = org.email;
+        document.getElementById("viewOrganizationPhone").innerText = org.phone;
+        document.getElementById("viewOrganizationStatus").innerText = org.status;
 
         viewModal.style.display = "flex";
 

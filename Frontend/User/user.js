@@ -1,145 +1,304 @@
-const certificates = [
-  { id: 'CERT-101', course: 'Advanced Java', organization: 'TechNova', issueDate: '2024-01-15', expiryDate: '2025-01-15', status: 'Verified', verification: 'Verified by QR' },
-  { id: 'CERT-102', course: 'Web Development', organization: 'CodeSphere', issueDate: '2024-02-10', expiryDate: '2025-02-10', status: 'Active', verification: 'Pending Review' },
-  { id: 'CERT-103', course: 'Data Science', organization: 'DataHub', issueDate: '2023-11-05', expiryDate: '2024-11-05', status: 'Expired', verification: 'Expired' },
-  { id: 'CERT-104', course: 'Cloud Computing', organization: 'CloudWorks', issueDate: '2024-03-20', expiryDate: '2026-03-20', status: 'Active', verification: 'Verified by QR' },
-  { id: 'CERT-105', course: 'Cyber Security', organization: 'SecureNet', issueDate: '2024-04-12', expiryDate: '2025-04-12', status: 'Verified', verification: 'Verified by QR' },
-  { id: 'CERT-106', course: 'UI/UX Design', organization: 'DesignHub', issueDate: '2024-05-08', expiryDate: '2026-05-08', status: 'Active', verification: 'Pending Review' },
-  { id: 'CERT-107', course: 'Machine Learning', organization: 'AICampus', issueDate: '2023-09-18', expiryDate: '2024-09-18', status: 'Expired', verification: 'Expired' },
-  { id: 'CERT-108', course: 'Blockchain Basics', organization: 'ChainLab', issueDate: '2024-06-22', expiryDate: '2026-06-22', status: 'Active', verification: 'Verified by QR' },
-  { id: 'CERT-109', course: 'Digital Marketing', organization: 'MarketPro', issueDate: '2024-07-01', expiryDate: '2025-07-01', status: 'Verified', verification: 'Verified by QR' },
-  { id: 'CERT-110', course: 'Python Programming', organization: 'CodeSphere', issueDate: '2024-08-14', expiryDate: '2026-08-14', status: 'Active', verification: 'Pending Review' }
-];
+const currentStudentUser = CV.requireAuth(["user"], "../Login/Login.html");
 
-const notifications = [
-  { title: 'Certificate successfully verified', message: 'CERT-101 was verified successfully.', unread: true, time: '2 hours ago' },
-  { title: 'New certificate issued', message: 'A new certificate was added to your account.', unread: false, time: 'Yesterday' },
-  { title: 'Certificate expiry reminder', message: 'CERT-103 is expiring soon.', unread: true, time: '3 days ago' },
-  { title: 'Profile updated successfully', message: 'Your profile information was saved.', unread: false, time: '1 week ago' }
-];
+if (currentStudentUser) {
+  const profileNameEl = document.querySelector(".admin-profile span");
+  if (profileNameEl) {
+    profileNameEl.textContent = currentStudentUser.name;
+  }
+}
 
-function renderCertificates(targetBody, limit) {
-  const filtered = certificates.slice(0, limit || certificates.length);
-  targetBody.innerHTML = filtered.map(item => `
-    <tr>
-      <td>${item.id}</td>
-      <td>${item.course}</td>
-      <td>${item.organization}</td>
-      <td>${item.issueDate}</td>
-      <td><span class="status-badge ${item.status.toLowerCase()}">${item.status}</span></td>
-      <td><a href="certificate-details.html?id=${item.id}" class="link-btn">View</a></td>
-    </tr>
-  `).join('');
+let currentCertificates = [];
+const orgNameCache = {};
+
+function formatDateDMY(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (Number.isNaN(d.getTime())) return "";
+  const day = String(d.getDate()).padStart(2, "0");
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  return `${day}-${month}-${d.getFullYear()}`;
+}
+
+function timeAgo(dateStr) {
+  const diffMs = Date.now() - new Date(dateStr).getTime();
+  const diffMin = Math.floor(diffMs / 60000);
+  if (diffMin < 1) return "Just now";
+  if (diffMin < 60) return diffMin + (diffMin === 1 ? " min ago" : " mins ago");
+  const diffHour = Math.floor(diffMin / 60);
+  if (diffHour < 24) return diffHour + (diffHour === 1 ? " hour ago" : " hours ago");
+  const diffDay = Math.floor(diffHour / 24);
+  return diffDay + (diffDay === 1 ? " day ago" : " days ago");
+}
+
+// Certificates fetched for the logged-in student never include the
+// organization's name (only its internal id) - and students aren't
+// authorized to call GET /api/organizations to resolve it. The public
+// verification endpoint already returns the organization name though, so
+// it's reused here purely as a read-only lookup (no backend change needed).
+async function resolveOrgName(certificateId) {
+  if (orgNameCache[certificateId] !== undefined) {
+    return orgNameCache[certificateId];
+  }
+  try {
+    const res = await CV.apiFetch("/verify/" + encodeURIComponent(certificateId));
+    const name = (res.certificate && res.certificate.organization) || "Unknown Organization";
+    orgNameCache[certificateId] = name;
+    return name;
+  } catch (error) {
+    orgNameCache[certificateId] = "Unknown Organization";
+    return "Unknown Organization";
+  }
+}
+
+async function fetchMyCertificates(extraParams) {
+  const params = new URLSearchParams({ limit: "100" });
+  if (extraParams) {
+    Object.keys(extraParams).forEach((key) => {
+      if (extraParams[key]) params.set(key, extraParams[key]);
+    });
+  }
+  const data = await CV.apiFetch("/certificates?" + params.toString());
+  return data.certificates;
+}
+
+async function renderCertificateRows(targetBody, certs) {
+  if (!certs.length) {
+    targetBody.innerHTML = '<tr><td colspan="6">No certificates found.</td></tr>';
+    return;
+  }
+
+  const rows = await Promise.all(
+    certs.map(async (cert) => {
+      const orgName = await resolveOrgName(cert.certificateId);
+      const statusClass = (cert.status || "").toLowerCase();
+      return `
+        <tr>
+          <td>${cert.certificateId}</td>
+          <td>${cert.course}</td>
+          <td>${orgName}</td>
+          <td>${formatDateDMY(cert.issueDate)}</td>
+          <td><span class="status-badge ${statusClass}">${cert.status}</span></td>
+          <td><a href="certificate-details.html?id=${cert.id}" class="link-btn">View</a></td>
+        </tr>
+      `;
+    })
+  );
+
+  targetBody.innerHTML = rows.join("");
 }
 
 function getSearchQuery() {
   return new URLSearchParams(window.location.search).get('search') || '';
 }
 
-function applyCertificateFilter() {
+async function applyCertificateFilter() {
   const searchInput = document.getElementById('certificateSearch');
-  const search = (searchInput?.value || getSearchQuery()).toLowerCase();
+  const search = (searchInput ? searchInput.value.trim() : getSearchQuery()).toLowerCase();
   const filter = document.getElementById('certificateFilter')?.value || 'all';
   const body = document.getElementById('certificateTableBody');
   if (!body) return;
 
-  const filtered = certificates.filter(item => {
-    const matchesSearch = [item.id, item.course, item.organization].join(' ').toLowerCase().includes(search);
-    const matchesFilter = filter === 'all' || item.status === filter;
-    return matchesSearch && matchesFilter;
-  });
+  body.innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
 
-  body.innerHTML = filtered.map(item => `
-    <tr>
-      <td>${item.id}</td>
-      <td>${item.course}</td>
-      <td>${item.organization}</td>
-      <td>${item.issueDate}</td>
-      <td><span class="status-badge ${item.status.toLowerCase()}">${item.status}</span></td>
-      <td><a href="certificate-details.html?id=${item.id}" class="link-btn">View</a></td>
-    </tr>
-  `).join('');
+  try {
+    const params = {};
+    if (filter !== 'all') params.status = filter;
+    if (search) params.search = search;
+
+    currentCertificates = await fetchMyCertificates(params);
+    await renderCertificateRows(body, currentCertificates);
+  } catch (error) {
+    body.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || 'Failed to load certificates.'}</td></tr>`;
+  }
+}
+
+async function initDashboard() {
+  const welcomeHeading = document.querySelector('.welcome-box h1');
+  if (welcomeHeading && currentStudentUser) {
+    welcomeHeading.textContent = `Welcome back, ${currentStudentUser.name}`;
+  }
+
+  const dashboardBody = document.getElementById('dashboardTableBody');
+  if (!dashboardBody) return;
+
+  dashboardBody.innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
+
+  try {
+    const certs = await fetchMyCertificates();
+    const now = Date.now();
+
+    const total = certs.length;
+    const verified = certs.filter((c) => c.status === "Verified").length;
+    const active = certs.filter(
+      (c) => c.status === "Verified" && (!c.expiryDate || new Date(c.expiryDate).getTime() > now)
+    ).length;
+    const expired = certs.filter(
+      (c) => c.status === "Expired" || (c.expiryDate && new Date(c.expiryDate).getTime() <= now)
+    ).length;
+
+    document.getElementById("statTotalCertificates").textContent = total;
+    document.getElementById("statVerifiedCertificates").textContent = verified;
+    document.getElementById("statActiveCertificates").textContent = active;
+    document.getElementById("statExpiredCertificates").textContent = expired;
+
+    const sortedByRecent = certs.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    await renderCertificateRows(dashboardBody, sortedByRecent.slice(0, 5));
+
+    const activityList = document.querySelector('.activity-list');
+    if (activityList) {
+      const recentEvents = sortedByRecent
+        .slice(0, 3)
+        .map((cert) => `<li><strong>Certificate for ${cert.course}</strong><span>${timeAgo(cert.createdAt)}</span></li>`);
+      activityList.innerHTML = recentEvents.join("") || '<li><strong>No recent activity yet.</strong></li>';
+    }
+  } catch (error) {
+    dashboardBody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || 'Failed to load certificates.'}</td></tr>`;
+  }
 }
 
 function initProfile() {
   const form = document.getElementById('profileForm');
   const editBtn = document.getElementById('editProfileBtn');
   const saveBtn = document.getElementById('saveProfileBtn');
-  const inputs = ['fullName','email','phone','studentId','dob','college','course'];
-  const values = {
-    fullName: 'Hanish Maldavdiya',
-    email: 'hanish@example.com',
-    phone: '+91 98765 43210',
-    studentId: 'STU-202401',
-    dob: '2001-05-14',
-    college: 'ABC Institute of Technology',
-    course: 'B.Tech Computer Science'
-  };
-
-  inputs.forEach(key => {
-    const el = document.getElementById(key);
-    if (el) el.value = values[key];
-  });
-
   const nameEl = document.getElementById('profileName');
   const emailEl = document.getElementById('profileEmail');
-  if (nameEl) nameEl.textContent = values.fullName;
-  if (emailEl) emailEl.textContent = values.email;
 
-  const toggleInputs = () => inputs.forEach(key => {
-    const el = document.getElementById(key);
-    if (el) el.disabled = !el.disabled;
-  });
+  const toggleEditableInputs = () => {
+    ['fullName', 'email'].forEach((key) => {
+      const el = document.getElementById(key);
+      if (el) el.disabled = !el.disabled;
+    });
+  };
 
-  if (editBtn) editBtn.addEventListener('click', toggleInputs);
-  if (form) form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const updatedName = document.getElementById('fullName')?.value || values.fullName;
-    const updatedEmail = document.getElementById('email')?.value || values.email;
-    if (nameEl) nameEl.textContent = updatedName;
-    if (emailEl) emailEl.textContent = updatedEmail;
-    alert('Profile updated successfully');
-    toggleInputs();
-  });
+  (async function loadProfile() {
+    try {
+      const data = await CV.apiFetch('/users/' + currentStudentUser.id);
+      document.getElementById('fullName').value = data.user.name;
+      document.getElementById('email').value = data.user.email;
+      nameEl.textContent = data.user.name;
+      emailEl.textContent = data.user.email;
+      // Phone/Student ID/DOB/College/Course have no field on the User model
+      // yet, so they stay blank and disabled (see final report).
+    } catch (error) {
+      nameEl.textContent = 'Unable to load profile';
+    }
+  })();
+
+  if (editBtn) editBtn.addEventListener('click', toggleEditableInputs);
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const updatedName = document.getElementById('fullName').value.trim();
+      const updatedEmail = document.getElementById('email').value.trim();
+
+      if (!updatedName || !updatedEmail) {
+        alert('Name and email are required.');
+        return;
+      }
+
+      try {
+        const data = await CV.apiFetch('/users/' + currentStudentUser.id, {
+          method: 'PUT',
+          body: { name: updatedName, email: updatedEmail },
+        });
+
+        CV.setSession(CV.getToken(), { ...currentStudentUser, name: data.user.name, email: data.user.email });
+        nameEl.textContent = data.user.name;
+        emailEl.textContent = data.user.email;
+
+        alert('Profile updated successfully');
+        toggleEditableInputs();
+      } catch (error) {
+        alert(error.message || 'Failed to update profile.');
+      }
+    });
+  }
 
   if (saveBtn) saveBtn.style.display = 'inline-block';
 }
 
-function initDetails() {
+async function initDetails() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get('id');
-  const cert = certificates.find(item => item.id === id) || certificates[0];
-  if (!cert) return;
-  document.getElementById('detailCourse').textContent = cert.course;
-  document.getElementById('detailOrg').textContent = cert.organization;
-  document.getElementById('detailStatus').textContent = cert.status;
-  document.getElementById('detailStatus').className = `status-badge ${cert.status.toLowerCase()}`;
-  document.getElementById('detailId').textContent = cert.id;
-  document.getElementById('detailIssue').textContent = cert.issueDate;
-  document.getElementById('detailExpiry').textContent = cert.expiryDate;
-  document.getElementById('detailVerification').textContent = cert.verification;
-  document.getElementById('detailOrg2').textContent = cert.organization;
 
-  document.getElementById('downloadBtn')?.addEventListener('click', () => alert('Certificate download demo'));
-  document.getElementById('verifyBtn')?.addEventListener('click', () => alert('Certificate verification demo'));
+  if (!id) {
+    document.getElementById('detailCourse').textContent = 'No certificate specified';
+    return;
+  }
+
+  try {
+    const data = await CV.apiFetch('/certificates/' + id);
+    const cert = data.certificate;
+
+    document.getElementById('detailCourse').textContent = cert.course;
+    document.getElementById('detailRecipientName').textContent = cert.recipientName;
+    document.getElementById('detailId').textContent = cert.certificateId;
+    document.getElementById('detailIssue').textContent = formatDateDMY(cert.issueDate);
+    document.getElementById('detailExpiry').textContent = cert.expiryDate ? formatDateDMY(cert.expiryDate) : 'No expiry';
+    document.getElementById('detailStatus').textContent = cert.status;
+    document.getElementById('detailStatus').className = `status-badge ${(cert.status || '').toLowerCase()}`;
+
+    const qrBox = document.querySelector('.qr-box');
+    if (qrBox && cert.qrCode) {
+      qrBox.innerHTML = `<img src="${cert.qrCode}" alt="Certificate QR Code" style="max-width:120px;"><p>Scan to verify</p>`;
+    }
+
+    let orgName = "Unknown Organization";
+    let verifyRes = null;
+    try {
+      verifyRes = await CV.apiFetch('/verify/' + encodeURIComponent(cert.certificateId));
+      orgName = (verifyRes.certificate && verifyRes.certificate.organization) || orgName;
+    } catch (error) {
+      console.error("Failed to resolve organization / live verification status", error);
+    }
+
+    document.getElementById('detailOrg').textContent = orgName;
+    document.getElementById('detailOrg2').textContent = orgName;
+    document.getElementById('detailVerification').textContent = verifyRes
+      ? verifyRes.message
+      : 'Unable to verify right now';
+
+    document.getElementById('downloadBtn').addEventListener('click', async function () {
+      const btn = this;
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Downloading...';
+      try {
+        await CV.downloadPdf(`/certificates/${cert.id}/pdf`, `${cert.certificateId}.pdf`);
+      } catch (error) {
+        alert(error.message || 'Failed to download certificate.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    });
+
+    document.getElementById('verifyBtn').addEventListener('click', async function () {
+      try {
+        const res = await CV.apiFetch('/verify/' + encodeURIComponent(cert.certificateId));
+        alert(res.message || (res.valid ? 'Certificate is valid' : 'Certificate is not valid'));
+      } catch (error) {
+        alert(error.message || 'Failed to verify certificate.');
+      }
+    });
+  } catch (error) {
+    document.getElementById('detailCourse').textContent = 'Unable to load certificate';
+    document.getElementById('detailOrg').textContent = error.message || 'Please try again later.';
+  }
 }
 
 function initNotifications() {
   const list = document.getElementById('notificationsList');
   if (!list) return;
-  list.innerHTML = notifications.map(item => `
-    <div class="notification-item ${item.unread ? 'unread' : ''}">
-      <div>
-        <strong>${item.title}</strong>
-        <p>${item.message}</p>
-      </div>
-      <span>${item.time}</span>
-    </div>
-  `).join('');
+  // There is no Notifications model/API in the backend yet (see final report).
+  list.innerHTML =
+    '<div class="notification-item"><div><strong>Notifications are coming soon</strong>' +
+    '<p>This feature isn\'t connected to live data yet.</p></div></div>';
 }
 
-const dashboardBody = document.getElementById('dashboardTableBody');
-if (dashboardBody) renderCertificates(dashboardBody, 5);
+if (document.getElementById('dashboardTableBody')) initDashboard();
 
 const searchInput = document.getElementById('certificateSearch');
 const dashboardSearchInput = document.getElementById('dashboardSearch');
@@ -171,6 +330,6 @@ const logoutItem = document.querySelector('.logout-item');
 if (logoutItem) logoutItem.addEventListener('click', (event) => {
   event.preventDefault();
   if (confirm('Are you sure you want to logout?')) {
-    window.location.href = '../Login/Login.html';
+    CV.logout('../Login/Login.html');
   }
 });

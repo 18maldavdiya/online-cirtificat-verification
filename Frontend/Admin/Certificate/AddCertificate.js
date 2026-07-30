@@ -1,111 +1,66 @@
 // ======================================
 // AddCertificate.js
+// Issue New Certificate / Save edits (shared form submit)
 // ======================================
 
 const certificateForm = document.getElementById("certificateForm");
-const certificateTable = document.getElementById("certificateTable");
 
-let certificateCount = 11;
+function generateCertificateId() {
+    return (
+        "CERT-" +
+        Date.now().toString(36).toUpperCase() +
+        "-" +
+        Math.random().toString(36).slice(2, 6).toUpperCase()
+    );
+}
 
-certificateForm.addEventListener("submit", function(event){
+certificateForm.addEventListener("submit", async function(event){
 
     event.preventDefault();
 
-    const studentName = document.getElementById("studentName").value.trim();
-    const studentEmail = document.getElementById("studentEmail").value.trim();
-    const course = document.getElementById("courseName").value.trim();
-    const organization = document.getElementById("organizationName").value.trim();
+    const recipientName = document.getElementById("studentName").value.trim();
+    const recipientEmail = document.getElementById("studentEmail").value.trim();
+    const course = document.getElementById("courseName").value;
+    const organization = document.getElementById("organizationName").value;
     const issueDate = document.getElementById("issueDate").value;
     const status = document.getElementById("certificateStatus").value;
 
-    if(studentName==="" || studentEmail==="" || course==="" || organization==="" || issueDate===""){
+    if(recipientName==="" || recipientEmail==="" || course==="" || organization==="" || issueDate===""){
 
         alert("Please fill all fields.");
         return;
 
     }
 
-    let statusClass="";
+    const submitBtn = certificateForm.querySelector(".save-btn");
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Saving...";
 
-    if(status==="Verified"){
+    const payload = { recipientName, recipientEmail, course, organization, issueDate, status };
 
-        statusClass="verified";
-
-    }else if(status==="Pending"){
-
-        statusClass="pending";
-
-    }else{
-
-        statusClass="inactive";
-
-    }
-
-    // ==========================
-    // Edit Certificate
-    // ==========================
-
-    if(editRow){
-
-        editRow.cells[1].innerText = studentName;
-        editRow.cells[2].innerText = course;
-        editRow.cells[3].innerText = organization;
-        editRow.cells[4].innerText = issueDate;
-
-        editRow.cells[5].innerHTML =
-            `<span class="status ${statusClass}">${status}</span>`;
-
-        editRow = null;
+    try {
+        if (editingCertificateId) {
+            await CV.apiFetch("/certificates/" + editingCertificateId, { method: "PUT", body: payload });
+            alert("Certificate Updated Successfully!");
+        } else {
+            payload.certificateId = generateCertificateId();
+            await CV.apiFetch("/certificates", { method: "POST", body: payload });
+            alert("Certificate Issued Successfully!");
+        }
 
         certificateForm.reset();
-
+        document.getElementById("modalTitle").innerText = "Issue Certificate";
+        editingCertificateId = null;
         modal.style.display="none";
 
-        alert("Certificate Updated Successfully!");
-
-        return;
+        loadCertificateStats();
+        loadCertificates();
+    } catch (error) {
+        alert(error.message || "Something went wrong. Please try again.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     }
-
-    // ==========================
-    // Add New Certificate
-    // ==========================
-
-    const newRow=document.createElement("tr");
-
-    newRow.innerHTML=`
-
-        <td>CERT${certificateCount}</td>
-
-        <td>${studentName}</td>
-
-        <td>${course}</td>
-
-        <td>${organization}</td>
-
-        <td>${issueDate}</td>
-
-        <td><span class="status ${statusClass}">${status}</span></td>
-
-        <td>
-
-            <button class="view"><i class="fa-solid fa-eye"></i></button>
-
-            <button class="edit"><i class="fa-solid fa-pen"></i></button>
-
-            <button class="delete"><i class="fa-solid fa-trash"></i></button>
-
-        </td>
-
-    `;
-
-    certificateTable.appendChild(newRow);
-
-    certificateCount++;
-
-    certificateForm.reset();
-
-    modal.style.display="none";
-
-    alert("Certificate Issued Successfully!");
 
 });

@@ -175,6 +175,25 @@ input:focus{
 
 
 /* ===========================
+        FORM ERROR
+=========================== */
+
+.form-error{
+
+    color:#dc2626;
+
+    font-size:14px;
+
+    margin-top:-15px;
+
+    margin-bottom:20px;
+
+    min-height:17px;
+
+}
+
+
+/* ===========================
         BUTTON
 =========================== */
 

@@ -3,24 +3,31 @@
 // Edit Existing User
 // ======================================
 
-let editRow = null;
-
-userTable.addEventListener("click", function (event) {
+document.getElementById("userTable").addEventListener("click", function (event) {
 
     if (event.target.closest(".edit")) {
 
-        editRow = event.target.closest("tr");
+        const row = event.target.closest("tr");
+        const id = row.dataset.id;
+        const user = currentUsers.find((u) => u.id === id);
 
-        const data = editRow.querySelectorAll("td");
+        if (!user) {
+            return;
+        }
 
-        document.getElementById("name").value = data[1].innerText;
+        editingUserId = id;
 
-        document.getElementById("email").value = data[2].innerText;
+        document.getElementById("name").value = user.name;
 
-        document.getElementById("role").value = data[3].innerText;
+        document.getElementById("email").value = user.email;
 
-        document.getElementById("status").value =
-            data[4].innerText.trim();
+        document.getElementById("password").value = "";
+        document.getElementById("password").required = false;
+        document.getElementById("password").placeholder = "Leave blank to keep current password";
+
+        document.getElementById("role").value = ROLE_API_TO_DISPLAY[user.role] || "Student";
+
+        document.getElementById("status").value = user.status;
 
         document.getElementById("modalTitle").innerText = "Edit User";
 

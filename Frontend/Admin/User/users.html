@@ -173,7 +173,7 @@
 
                     <div>
 
-                        <h2>150</h2>
+                        <h2 id="statTotalUsers">—</h2>
 
                         <p>Total Users</p>
 
@@ -188,7 +188,7 @@
 
                     <div>
 
-                        <h2>120</h2>
+                        <h2 id="statTotalStudents">—</h2>
 
                         <p>Students</p>
 
@@ -203,7 +203,7 @@
 
                     <div>
 
-                        <h2>25</h2>
+                        <h2 id="statTotalOrganizations">—</h2>
 
                         <p>Organizations</p>
 
@@ -218,7 +218,7 @@
 
                     <div>
 
-                        <h2>5</h2>
+                        <h2 id="statTotalAdmins">—</h2>
 
                         <p>Admins</p>
 
@@ -271,7 +271,7 @@
 
                     <h2>Registered Users</h2>
 
-                    <span>Total : 10 Users</span>
+                    <span id="userCountLabel">Total : 0 Users</span>
 
                 </div>
 
@@ -301,282 +301,8 @@
 
                         <tr>
 
-                            <td>U001</td>
+                            <td colspan="6">Loading users...</td>
 
-                            <td>Rahul Sharma</td>
-
-                            <td>rahul@gmail.com</td>
-
-                            <td>Student</td>
-
-                            <td>
-                                <span class="status active">
-                                    Active
-                                </span>
-                            </td>
-
-                            <td>
-
-                                <button class="view">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button class="edit">
-
-                                    <i class="fa-solid fa-pen"></i>
-
-                                </button>
-
-                                <button class="delete">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>U002</td>
-
-                            <td>Priya Patel</td>
-
-                            <td>priya@gmail.com</td>
-
-                            <td>Student</td>
-
-                            <td>
-
-                                <span class="status active">
-
-                                    Active
-
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                <button class="view">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button class="edit">
-
-                                    <i class="fa-solid fa-pen"></i>
-
-                                </button>
-
-                                <button class="delete">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>U003</td>
-
-                            <td>ABC University</td>
-
-                            <td>admin@abc.edu</td>
-
-                            <td>Organization</td>
-
-                            <td>
-
-                                <span class="status pending">
-
-                                    Pending
-
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                <button class="view">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button class="edit">
-
-                                    <i class="fa-solid fa-pen"></i>
-
-                                </button>
-
-                                <button class="delete">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>U004</td>
-
-                            <td>XYZ Institute</td>
-
-                            <td>admin@xyz.edu</td>
-
-                            <td>Organization</td>
-
-                            <td>
-
-                                <span class="status active">
-
-                                    Active
-
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                <button class="view">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button class="edit">
-
-                                    <i class="fa-solid fa-pen"></i>
-
-                                </button>
-
-                                <button class="delete">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>U005</td>
-
-                            <td>Super Admin</td>
-
-                            <td>admin@certiverify.com</td>
-
-                            <td>Admin</td>
-
-                            <td>
-
-                                <span class="status active">
-
-                                    Active
-
-                                </span>
-
-                            </td>
-
-                            <td>
-
-                                <button class="view">
-
-                                    <i class="fa-solid fa-eye"></i>
-
-                                </button>
-
-                                <button class="edit">
-
-                                    <i class="fa-solid fa-pen"></i>
-
-                                </button>
-
-                                <button class="delete">
-
-                                    <i class="fa-solid fa-trash"></i>
-
-                                </button>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>U006</td>
-                            <td>Rohan Gupta</td>
-                            <td>rohan@gmail.com</td>
-                            <td>Student</td>
-                            <td><span class="status active">Active</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>U007</td>
-                            <td>Sneha Singh</td>
-                            <td>sneha@gmail.com</td>
-                            <td>Student</td>
-                            <td><span class="status inactive">Inactive</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>U008</td>
-                            <td>Tech Academy</td>
-                            <td>admin@techacademy.com</td>
-                            <td>Organization</td>
-                            <td><span class="status pending">Pending</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>U009</td>
-                            <td>SAGE University</td>
-                            <td>admin@sage.edu</td>
-                            <td>Organization</td>
-                            <td><span class="status active">Active</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>U010</td>
-                            <td>System Admin</td>
-                            <td>system@certiverify.com</td>
-                            <td>Admin</td>
-                            <td><span class="status active">Active</span></td>
-                            <td>
-                                <button class="view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="edit"><i class="fa-solid fa-pen"></i></button>
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </td>
                         </tr>
 
                     </tbody>
@@ -712,6 +438,8 @@
             </div>
 
         </div>
+        <script src="../../api.js"></script>
+
         <script src="../admin.js"></script>
 
         <script src="user.js"></script>
