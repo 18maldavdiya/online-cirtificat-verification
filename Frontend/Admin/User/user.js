@@ -130,12 +130,12 @@ async function loadUsers() {
         tbody.innerHTML = currentUsers
             .map(
                 (user) => `
-                    <tr data-id="${user.id}">
-                        <td>#${user.id.slice(-8).toUpperCase()}</td>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>${ROLE_API_TO_DISPLAY[user.role] || user.role}</td>
-                        <td><span class="status ${user.status.toLowerCase()}">${user.status}</span></td>
+                    <tr data-id="${CV.escapeHtml(user.id)}">
+                        <td>#${CV.escapeHtml(user.id.slice(-8).toUpperCase())}</td>
+                        <td>${CV.escapeHtml(user.name)}</td>
+                        <td>${CV.escapeHtml(user.email)}</td>
+                        <td>${CV.escapeHtml(ROLE_API_TO_DISPLAY[user.role] || user.role)}</td>
+                        <td><span class="status ${CV.escapeHtml(user.status.toLowerCase())}">${CV.escapeHtml(user.status)}</span></td>
                         <td>
                             <button class="view"><i class="fa-solid fa-eye"></i></button>
                             <button class="edit"><i class="fa-solid fa-pen"></i></button>
@@ -146,7 +146,7 @@ async function loadUsers() {
             )
             .join("");
     } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || "Failed to load users."}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${CV.escapeHtml(error.message || "Failed to load users.")}</td></tr>`;
     }
 }
 

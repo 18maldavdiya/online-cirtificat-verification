@@ -30,6 +30,13 @@ exports.protect = async (req, res, next) => {
             });
         }
 
+        if (user.status !== "Active") {
+            return res.status(401).json({
+                success: false,
+                message: "Your account is not active. Please contact an administrator.",
+            });
+        }
+
         req.user = {
             id: user._id.toString(),
             name: user.name,

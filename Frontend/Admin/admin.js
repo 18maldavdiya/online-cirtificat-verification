@@ -1,6 +1,11 @@
 // ===============================
-// Auth Guard + Current User
+// Current User
 // ===============================
+
+// The auth guard itself already ran in <head> (before this page's body even
+// rendered) via CV.requireAuth - by the time this script runs we're already
+// confirmed to be an authenticated admin, so this is just a data read.
+const currentAdminUser = CV.getUser();
 
 // admin.js is shared by every Admin page at every nesting depth (Admin/,
 // Admin/Certificate/, Admin/User/, ...), so the relative path back to Login
@@ -18,8 +23,6 @@ function getLoginPath() {
 }
 
 const LOGIN_PATH = getLoginPath();
-
-const currentAdminUser = CV.requireAuth(["admin"], LOGIN_PATH);
 
 if (currentAdminUser) {
     const profileNameEl = document.querySelector(".admin-profile span");

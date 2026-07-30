@@ -6,6 +6,8 @@
     <title>Profile</title>
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="../api.js"></script>
+    <script>CV.requireAuth(["admin"], "../Login/Login.html");</script>
 </head>
 <body>
     <div class="sidebar">
@@ -57,8 +59,6 @@
             </div>
         </div>
     </div>
-
-    <script src="../api.js"></script>
     <script src="admin.js"></script>
     <script>
         (async function () {

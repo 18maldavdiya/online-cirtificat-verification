@@ -34,7 +34,9 @@ async function loadOrganizationsForForm() {
         const currentValue = select.value;
         select.innerHTML =
             '<option value="">Select Organization</option>' +
-            organizationsList.map((org) => `<option value="${org.id}">${org.name}</option>`).join("");
+            organizationsList
+                .map((org) => `<option value="${CV.escapeHtml(org.id)}">${CV.escapeHtml(org.name)}</option>`)
+                .join("");
         if (currentValue) {
             select.value = currentValue;
         }
@@ -152,13 +154,13 @@ async function loadCertificates() {
             .map((cert) => {
                 const orgName = organizationsMap[cert.organization] || "Unknown Organization";
                 return `
-                    <tr data-id="${cert.id}">
-                        <td>${cert.certificateId}</td>
-                        <td>${cert.recipientName}</td>
-                        <td>${cert.course}</td>
-                        <td>${orgName}</td>
+                    <tr data-id="${CV.escapeHtml(cert.id)}">
+                        <td>${CV.escapeHtml(cert.certificateId)}</td>
+                        <td>${CV.escapeHtml(cert.recipientName)}</td>
+                        <td>${CV.escapeHtml(cert.course)}</td>
+                        <td>${CV.escapeHtml(orgName)}</td>
                         <td>${formatDateDMY(cert.issueDate)}</td>
-                        <td><span class="status ${cert.status.toLowerCase()}">${cert.status}</span></td>
+                        <td><span class="status ${CV.escapeHtml(cert.status.toLowerCase())}">${CV.escapeHtml(cert.status)}</span></td>
                         <td>
                             <button class="view"><i class="fa-solid fa-eye"></i></button>
                             <button class="edit"><i class="fa-solid fa-pen"></i></button>
@@ -169,7 +171,7 @@ async function loadCertificates() {
             })
             .join("");
     } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="7" style="color:#dc2626;">${error.message || "Failed to load certificates."}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="color:#dc2626;">${CV.escapeHtml(error.message || "Failed to load certificates.")}</td></tr>`;
     }
 }
 

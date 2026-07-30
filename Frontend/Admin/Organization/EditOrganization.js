@@ -2,7 +2,7 @@
 // Edit Organization
 // ======================================
 
-document.getElementById("organizationTable").addEventListener("click", function(event){
+document.getElementById("organizationTable").addEventListener("click", async function(event){
 
     if(event.target.closest(".edit")){
 
@@ -29,6 +29,8 @@ document.getElementById("organizationTable").addEventListener("click", function(
         document.getElementById("organizationStatus").value = org.status;
 
         document.getElementById("modalTitle").innerText = "Edit Organization";
+
+        await populateLinkedUserDropdown(org.user ? String(org.user) : null);
 
         modal.style.display = "flex";
 

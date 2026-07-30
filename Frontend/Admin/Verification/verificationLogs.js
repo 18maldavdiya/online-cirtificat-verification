@@ -123,15 +123,19 @@ async function loadLogs() {
 
         tbody.innerHTML = logs
             .map((log) => {
+                // attemptedCode is whatever an anonymous, unauthenticated caller
+                // typed into the public /api/verify/:code endpoint - it is the
+                // least trustworthy string in this entire application and must
+                // never be treated as markup.
                 const certificateId = log.certificate ? log.certificate.certificateId : log.attemptedCode || "Unknown";
                 const statusClass = log.result === "Success" ? "verified" : "pending";
                 return `
-                    <tr data-id="${log.id}">
-                        <td>#${log.id.slice(-8).toUpperCase()}</td>
-                        <td>${certificateId}</td>
-                        <td>${log.verifierName || "Public User"}</td>
+                    <tr data-id="${CV.escapeHtml(log.id)}">
+                        <td>#${CV.escapeHtml(log.id.slice(-8).toUpperCase())}</td>
+                        <td>${CV.escapeHtml(certificateId)}</td>
+                        <td>${CV.escapeHtml(log.verifierName || "Public User")}</td>
                         <td>${formatLogDate(log.createdAt)}</td>
-                        <td><span class="status ${statusClass}">${log.result}</span></td>
+                        <td><span class="status ${statusClass}">${CV.escapeHtml(log.result)}</span></td>
                         <td>
                             <button class="view"><i class="fa-solid fa-eye"></i></button>
                         </td>
@@ -140,7 +144,7 @@ async function loadLogs() {
             })
             .join("");
     } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || "Failed to load verification logs."}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${CV.escapeHtml(error.message || "Failed to load verification logs.")}</td></tr>`;
     }
 }
 

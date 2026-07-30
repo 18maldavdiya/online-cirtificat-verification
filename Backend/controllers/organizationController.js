@@ -1,4 +1,5 @@
 const Organization = require("../models/Organization");
+const User = require("../models/User");
 const {
     isValidId,
     getPagination,
@@ -29,6 +30,32 @@ const formatOrganization = (org) => ({
 // linked to their own account.
 const isOwner = (org, req) =>
     org.user && org.user.toString() === req.user.id;
+
+// Validates a candidate `user` id for linking to an Organization: must be a
+// real, existing account with role "organization", and not already linked to
+// a different Organization document (the schema's unique index would catch
+// this too, but checking here first gives a specific, actionable message
+// instead of a generic duplicate-key error).
+const validateLinkedUser = async (userId, currentOrgId) => {
+    if (!isValidId(userId)) {
+        return { status: 400, error: "Invalid linked user ID" };
+    }
+
+    const linkedUser = await User.findById(userId);
+    if (!linkedUser || linkedUser.role !== "organization") {
+        return { status: 400, error: "Linked user must be an existing account with the organization role" };
+    }
+
+    const conflict = await Organization.findOne({
+        user: userId,
+        ...(currentOrgId ? { _id: { $ne: currentOrgId } } : {}),
+    });
+    if (conflict) {
+        return { status: 409, error: "This user account is already linked to another organization" };
+    }
+
+    return { status: null, error: null };
+};
 
 // @desc    Create a new organization
 // @route   POST /api/organizations
@@ -61,11 +88,11 @@ exports.createOrganization = async (req, res) => {
             return res.status(400).json({ success: false, message: statusError });
         }
 
-        if (user && !isValidId(user)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid linked user ID",
-            });
+        if (user) {
+            const { status: linkedUserStatus, error: linkedUserError } = await validateLinkedUser(user, null);
+            if (linkedUserError) {
+                return res.status(linkedUserStatus).json({ success: false, message: linkedUserError });
+            }
         }
 
         const existingOrg = await Organization.findOne({
@@ -227,7 +254,7 @@ exports.updateOrganization = async (req, res) => {
             });
         }
 
-        const { name, email, phone, address, type, status } = req.body;
+        const { name, email, phone, address, type, status, user } = req.body;
 
         if (name !== undefined) org.name = name;
         if (phone !== undefined) org.phone = phone;
@@ -263,6 +290,25 @@ exports.updateOrganization = async (req, res) => {
                 return res.status(400).json({ success: false, message: statusError });
             }
             org.status = status;
+        }
+
+        if (user !== undefined) {
+            if (req.user.role !== "admin") {
+                return res.status(403).json({
+                    success: false,
+                    message: "Only an admin can change the linked user account",
+                });
+            }
+
+            if (user === null || user === "") {
+                org.user = undefined;
+            } else {
+                const { status: linkedUserStatus, error: linkedUserError } = await validateLinkedUser(user, org._id);
+                if (linkedUserError) {
+                    return res.status(linkedUserStatus).json({ success: false, message: linkedUserError });
+                }
+                org.user = user;
+            }
         }
 
         await org.save();

@@ -1,4 +1,7 @@
-const currentOrgUser = CV.requireAuth(["organization"], "../Login/Login.html");
+// The auth guard itself already ran in <head> (before this page's body even
+// rendered) via CV.requireAuth - by the time this script runs we're already
+// confirmed to be an authenticated organization user, so this is just a data read.
+const currentOrgUser = CV.getUser();
 
 let myOrganization = null;
 let currentOrgCertificates = [];
@@ -83,11 +86,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                         const statusClass = cert.status === "Verified" ? "verified" : cert.status === "Pending" ? "pending" : "";
                         return `
                             <tr>
-                                <td>${cert.certificateId}</td>
-                                <td>${cert.recipientName}</td>
-                                <td>${cert.course}</td>
+                                <td>${CV.escapeHtml(cert.certificateId)}</td>
+                                <td>${CV.escapeHtml(cert.recipientName)}</td>
+                                <td>${CV.escapeHtml(cert.course)}</td>
                                 <td>${formatDateDMY(cert.issueDate)}</td>
-                                <td><span class="${statusClass}">${cert.status}</span></td>
+                                <td><span class="${statusClass}">${CV.escapeHtml(cert.status)}</span></td>
                             </tr>
                         `;
                     })
@@ -97,10 +100,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             const activityList = document.getElementById("recentActivityList");
             const events = [];
             recentRes.certificates.slice(0, 3).forEach((cert) => {
-                events.push({ text: `Certificate issued to <strong>${cert.recipientName}</strong>`, time: cert.createdAt });
+                events.push({ text: `Certificate issued to <strong>${CV.escapeHtml(cert.recipientName)}</strong>`, time: cert.createdAt });
             });
             (logsRes.logs || []).forEach((log) => {
-                const certLabel = log.certificate ? log.certificate.certificateId : log.attemptedCode || "unknown code";
+                // attemptedCode comes straight from an anonymous, unauthenticated
+                // caller of the public verify endpoint - never trust it as markup.
+                const certLabel = CV.escapeHtml(
+                    log.certificate ? log.certificate.certificateId : log.attemptedCode || "unknown code"
+                );
                 events.push({
                     text: log.result === "Success" ? `Certificate <strong>${certLabel}</strong> verified` : `Verification failed for <strong>${certLabel}</strong>`,
                     time: log.createdAt,
@@ -112,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 ? events.slice(0, 4).map((e) => `<li><strong>${e.text}</strong><span>${timeAgo(e.time)}</span></li>`).join("")
                 : '<li><strong>No recent activity yet.</strong></li>';
         } catch (error) {
-            dashboardBody.innerHTML = `<tr><td colspan="5" style="color:#dc2626;">${error.message || "Failed to load dashboard data."}</td></tr>`;
+            dashboardBody.innerHTML = `<tr><td colspan="5" style="color:#dc2626;">${CV.escapeHtml(error.message || "Failed to load dashboard data.")}</td></tr>`;
         }
     }
 
@@ -194,12 +201,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                     .map((cert) => {
                         const statusClass = cert.status === "Verified" ? "verified" : cert.status === "Pending" ? "pending" : "";
                         return `
-                            <tr data-id="${cert.id}">
-                                <td>${cert.certificateId}</td>
-                                <td>${cert.recipientName}</td>
-                                <td>${cert.course}</td>
+                            <tr data-id="${CV.escapeHtml(cert.id)}">
+                                <td>${CV.escapeHtml(cert.certificateId)}</td>
+                                <td>${CV.escapeHtml(cert.recipientName)}</td>
+                                <td>${CV.escapeHtml(cert.course)}</td>
                                 <td>${formatDateDMY(cert.issueDate)}</td>
-                                <td><span class="${statusClass}">${cert.status}</span></td>
+                                <td><span class="${statusClass}">${CV.escapeHtml(cert.status)}</span></td>
                                 <td><button class="link-btn" data-action="download" style="background:none;border:none;cursor:pointer;">Download PDF</button></td>
                             </tr>
                         `;
@@ -229,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
             }
         } catch (error) {
-            certificateBody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || "Failed to load certificates."}</td></tr>`;
+            certificateBody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${CV.escapeHtml(error.message || "Failed to load certificates.")}</td></tr>`;
         }
     }
 
@@ -336,22 +343,24 @@ document.addEventListener('DOMContentLoaded', async function () {
             } else {
                 verificationBody.innerHTML = data.logs
                     .map((log) => {
+                        // attemptedCode comes straight from an anonymous, unauthenticated
+                        // caller of the public verify endpoint - never trust it as markup.
                         const certificateId = log.certificate ? log.certificate.certificateId : log.attemptedCode || "Unknown";
                         const statusClass = log.result === "Success" ? "verified" : "pending";
                         return `
                             <tr>
-                                <td>#${log.id.slice(-8).toUpperCase()}</td>
-                                <td>${certificateId}</td>
-                                <td>${log.verifierName || "Public User"}</td>
+                                <td>#${CV.escapeHtml(log.id.slice(-8).toUpperCase())}</td>
+                                <td>${CV.escapeHtml(certificateId)}</td>
+                                <td>${CV.escapeHtml(log.verifierName || "Public User")}</td>
                                 <td>${formatDateDMY(log.createdAt)}</td>
-                                <td><span class="${statusClass}">${log.result}</span></td>
+                                <td><span class="${statusClass}">${CV.escapeHtml(log.result)}</span></td>
                             </tr>
                         `;
                     })
                     .join("");
             }
         } catch (error) {
-            verificationBody.innerHTML = `<tr><td colspan="5" style="color:#dc2626;">${error.message || "Failed to load verification history."}</td></tr>`;
+            verificationBody.innerHTML = `<tr><td colspan="5" style="color:#dc2626;">${CV.escapeHtml(error.message || "Failed to load verification history.")}</td></tr>`;
         }
     }
 

@@ -18,14 +18,6 @@ const ROLE_REDIRECTS = {
     user: "../User/dashboard.html",
 };
 
-// If already logged in, skip straight to the right dashboard.
-(function redirectIfAlreadyLoggedIn() {
-    const existingUser = CV.getUser();
-    if (CV.getToken() && existingUser && ROLE_REDIRECTS[existingUser.role]) {
-        window.location.href = ROLE_REDIRECTS[existingUser.role];
-    }
-})();
-
 // ==============================
 // Login Event
 // ==============================
@@ -63,6 +55,8 @@ form.addEventListener("submit", async function (event) {
         });
 
         CV.setSession(data.token, data.user);
+        console.log("LOGIN RESPONSE:", data);
+console.log("USER ROLE:", data.user.role);
 
         const destination = ROLE_REDIRECTS[data.user.role];
         window.location.href = destination || "../LangingPage/index.html";

@@ -14,6 +14,8 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <script src="../api.js"></script>
+    <script>CV.requireAuth(["admin"], "../Login/Login.html");</script>
 </head>
 
 <body>
@@ -290,8 +292,6 @@
         </footer>
 
     </div>
-
-    <script src="../api.js"></script>
     <script src="admin.js"></script>
     <script>
         (function () {
@@ -334,10 +334,10 @@
                         const statusClass = cert.status === "Verified" ? "verified" : cert.status === "Pending" ? "pending" : "";
                         return `
                             <tr>
-                                <td>${cert.certificateId}</td>
-                                <td>${cert.recipientName}</td>
-                                <td>${cert.course}</td>
-                                <td class="${statusClass}">${cert.status}</td>
+                                <td>${CV.escapeHtml(cert.certificateId)}</td>
+                                <td>${CV.escapeHtml(cert.recipientName)}</td>
+                                <td>${CV.escapeHtml(cert.course)}</td>
+                                <td class="${statusClass}">${CV.escapeHtml(cert.status)}</td>
                             </tr>
                         `;
                     })
@@ -356,13 +356,17 @@
 
                 certsRes.certificates.forEach((cert) => {
                     events.push({
-                        text: `<strong>${cert.recipientName}</strong>'s certificate for <strong>${cert.course}</strong> was issued.`,
+                        text: `<strong>${CV.escapeHtml(cert.recipientName)}</strong>'s certificate for <strong>${CV.escapeHtml(cert.course)}</strong> was issued.`,
                         time: cert.createdAt,
                     });
                 });
 
                 logsRes.logs.forEach((log) => {
-                    const certLabel = log.certificate ? log.certificate.certificateId : log.attemptedCode || "unknown code";
+                    // attemptedCode comes straight from an anonymous, unauthenticated
+                    // caller of the public verify endpoint - never trust it as markup.
+                    const certLabel = CV.escapeHtml(
+                        log.certificate ? log.certificate.certificateId : log.attemptedCode || "unknown code"
+                    );
                     events.push({
                         text:
                             log.result === "Success"
@@ -396,7 +400,7 @@
                 try {
                     await Promise.all([loadStats(), loadRecentCertificates(), loadRecentActivity()]);
                 } catch (error) {
-                    const message = error.message || "Failed to load dashboard data.";
+                    const message = CV.escapeHtml(error.message || "Failed to load dashboard data.");
                     document.getElementById("recentCertificatesBody").innerHTML =
                         `<tr><td colspan="4" style="color:#dc2626;">${message}</td></tr>`;
                     document.getElementById("recentActivityBody").innerHTML =

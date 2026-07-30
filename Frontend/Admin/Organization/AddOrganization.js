@@ -15,6 +15,7 @@ organizationForm.addEventListener("submit", async function (event) {
     const address = document.getElementById("organizationAddress").value.trim();
     const type = document.getElementById("organizationType").value;
     const status = document.getElementById("organizationStatus").value;
+    const linkedUserId = document.getElementById("organizationLinkedUser").value;
 
     if (name === "" || email === "" || phone === "") {
 
@@ -29,6 +30,14 @@ organizationForm.addEventListener("submit", async function (event) {
     submitBtn.textContent = "Saving...";
 
     const payload = { name, email, phone, address, type, status };
+
+    if (editingOrganizationId) {
+        // Editing: always send `user` so a cleared selection explicitly unlinks.
+        payload.user = linkedUserId || null;
+    } else if (linkedUserId) {
+        // Creating: only include `user` when one was actually picked.
+        payload.user = linkedUserId;
+    }
 
     try {
         if (editingOrganizationId) {

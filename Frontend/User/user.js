@@ -1,4 +1,7 @@
-const currentStudentUser = CV.requireAuth(["user"], "../Login/Login.html");
+// The auth guard itself already ran in <head> (before this page's body even
+// rendered) via CV.requireAuth - by the time this script runs we're already
+// confirmed to be an authenticated student, so this is just a data read.
+const currentStudentUser = CV.getUser();
 
 if (currentStudentUser) {
   const profileNameEl = document.querySelector(".admin-profile span");
@@ -73,12 +76,12 @@ async function renderCertificateRows(targetBody, certs) {
       const statusClass = (cert.status || "").toLowerCase();
       return `
         <tr>
-          <td>${cert.certificateId}</td>
-          <td>${cert.course}</td>
-          <td>${orgName}</td>
+          <td>${CV.escapeHtml(cert.certificateId)}</td>
+          <td>${CV.escapeHtml(cert.course)}</td>
+          <td>${CV.escapeHtml(orgName)}</td>
           <td>${formatDateDMY(cert.issueDate)}</td>
-          <td><span class="status-badge ${statusClass}">${cert.status}</span></td>
-          <td><a href="certificate-details.html?id=${cert.id}" class="link-btn">View</a></td>
+          <td><span class="status-badge ${CV.escapeHtml(statusClass)}">${CV.escapeHtml(cert.status)}</span></td>
+          <td><a href="certificate-details.html?id=${encodeURIComponent(cert.id)}" class="link-btn">View</a></td>
         </tr>
       `;
     })
@@ -108,7 +111,7 @@ async function applyCertificateFilter() {
     currentCertificates = await fetchMyCertificates(params);
     await renderCertificateRows(body, currentCertificates);
   } catch (error) {
-    body.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || 'Failed to load certificates.'}</td></tr>`;
+    body.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${CV.escapeHtml(error.message || 'Failed to load certificates.')}</td></tr>`;
   }
 }
 
@@ -148,11 +151,11 @@ async function initDashboard() {
     if (activityList) {
       const recentEvents = sortedByRecent
         .slice(0, 3)
-        .map((cert) => `<li><strong>Certificate for ${cert.course}</strong><span>${timeAgo(cert.createdAt)}</span></li>`);
+        .map((cert) => `<li><strong>Certificate for ${CV.escapeHtml(cert.course)}</strong><span>${timeAgo(cert.createdAt)}</span></li>`);
       activityList.innerHTML = recentEvents.join("") || '<li><strong>No recent activity yet.</strong></li>';
     }
   } catch (error) {
-    dashboardBody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${error.message || 'Failed to load certificates.'}</td></tr>`;
+    dashboardBody.innerHTML = `<tr><td colspan="6" style="color:#dc2626;">${CV.escapeHtml(error.message || 'Failed to load certificates.')}</td></tr>`;
   }
 }
 

@@ -1,8 +1,9 @@
 // ==========================================================================
 // Shared API client for the whole frontend. Single source of truth for the
 // backend base URL, auth-token storage, the fetch wrapper (JSON + auth
-// header + error normalization), PDF download, and page route-guarding.
-// Loaded before every page's own script via <script src=".../api.js"></script>.
+// header + error normalization), PDF download, output-escaping, and page
+// route-guarding (including session-expiry and cross-tab/back-button sync).
+// Loaded first, in <head>, on every page.
 // ==========================================================================
 (function (global) {
     const API_BASE_URL = "http://localhost:5000/api";
@@ -36,33 +37,90 @@
 
     function logout(loginPath) {
         clearSession();
-        window.location.href = loginPath;
+        window.location.href = loginPath || computeLoginPath();
+    }
+
+    // Works out the relative path back to Login.html from wherever this page
+    // lives (Admin/, Admin/Certificate/, Organization/, User/, ...) so the
+    // rest of this file can redirect on session expiry without every caller
+    // having to know/pass its own depth.
+    function computeLoginPath() {
+        const path = window.location.pathname;
+        const markers = ["/Admin/", "/Organization/", "/User/", "/Login/", "/LangingPage/"];
+
+        for (const marker of markers) {
+            const idx = path.indexOf(marker);
+            if (idx !== -1) {
+                const after = path.slice(idx + marker.length);
+                const depth = after.split("/").length - 1;
+                return "../".repeat(depth + 1) + "Login/Login.html";
+            }
+        }
+
+        return "Login/Login.html";
+    }
+
+    function isOnLoginPage() {
+        return window.location.pathname.includes("/Login/");
     }
 
     // Redirects to loginPath if there is no session, or if allowedRoles is
     // given and the logged-in user's role isn't in it. Returns the user object
     // so pages can use it immediately, or null if a redirect just happened.
+    // Intended to be called as early as possible (ideally from <head>, before
+    // the page body renders) so an unauthorized visitor never sees so much as
+    // the page shell of a dashboard that isn't theirs.
     function requireAuth(allowedRoles, loginPath) {
         const token = getToken();
         const user = getUser();
+        const path = loginPath || computeLoginPath();
 
         if (!token || !user) {
-            window.location.href = loginPath;
+            window.location.replace(path);
             return null;
         }
 
         if (allowedRoles && allowedRoles.length && !allowedRoles.includes(user.role)) {
-            window.location.href = loginPath;
+            window.location.replace(path);
             return null;
         }
 
         return user;
     }
 
+    // Escapes a value for safe interpolation into innerHTML. Every place that
+    // builds table rows/lists from server data (recipient names, course
+    // titles, organization names, emails, ...) must run untrusted strings
+    // through this before concatenating them into an HTML template - those
+    // values come from other, lower-privileged accounts (e.g. an Organization
+    // issuing a certificate that an Admin later views) and are not safe to
+    // treat as markup.
+    function escapeHtml(value) {
+        if (value === null || value === undefined) {
+            return "";
+        }
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    // A 401 with a token attached means the session itself is invalid/expired
+    // (as opposed to e.g. a login attempt with the wrong password, which also
+    // returns 401 but never sends a token) - in that case the current page
+    // can no longer function, so redirect immediately instead of leaving the
+    // user stuck looking at a dashboard that can't load anything.
+    function handleUnauthorized(hadToken) {
+        clearSession();
+        if (hadToken && !isOnLoginPage()) {
+            window.location.href = computeLoginPath();
+        }
+    }
+
     // JSON request wrapper. Attaches the bearer token automatically when
-    // present. On 401 the stored session is cleared (token expired/invalid)
-    // so the next requireAuth() call redirects to login; callers can also
-    // catch err.status === 401 to redirect immediately from the current page.
+    // present.
     async function apiFetch(path, options = {}) {
         const token = getToken();
         const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
@@ -91,7 +149,7 @@
         }
 
         if (response.status === 401) {
-            clearSession();
+            handleUnauthorized(!!token);
         }
 
         if (!response.ok) {
@@ -129,7 +187,7 @@
                 data = null;
             }
             if (response.status === 401) {
-                clearSession();
+                handleUnauthorized(!!token);
             }
             const err = new Error((data && data.message) || `Download failed (${response.status})`);
             err.status = response.status;
@@ -147,6 +205,29 @@
         window.URL.revokeObjectURL(url);
     }
 
+    // ---- Session hygiene: back/forward cache and cross-tab logout sync ----
+
+    // If this page is restored from the browser's back/forward cache (e.g.
+    // via the Back button right after logging out), its JS does not re-run,
+    // so a guard that only checked auth on the original load would never
+    // catch a session that has since been cleared. Force a real reload so
+    // every guard on the page re-evaluates against current storage.
+    window.addEventListener("pageshow", function (event) {
+        if (event.persisted && !getToken()) {
+            window.location.reload();
+        }
+    });
+
+    // localStorage changes made in one tab fire a "storage" event in every
+    // *other* open tab. If the session was just cleared (logout, or a 401
+    // handled elsewhere), reload so this tab's guards re-run too, instead of
+    // leaving a second tab logged in and usable after the user logged out.
+    window.addEventListener("storage", function (event) {
+        if (event.key === TOKEN_KEY && !event.newValue) {
+            window.location.reload();
+        }
+    });
+
     global.CV = {
         API_BASE_URL,
         getToken,
@@ -157,5 +238,6 @@
         requireAuth,
         apiFetch,
         downloadPdf,
+        escapeHtml,
     };
 })(window);
