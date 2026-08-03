@@ -16,12 +16,19 @@ const confirmPassword = document.getElementById("confirmPassword");
 // Load current admin data
 // ==============================
 
+// Populated once the real admin profile loads, so the Reset button can
+// restore these actual values instead of the hardcoded HTML defaults.
+let loadedAdminName = adminNameInput.value;
+let loadedAdminEmail = adminEmailInput.value;
+
 (async function loadCurrentAdmin() {
     try {
         const currentUser = CV.getUser();
         const data = await CV.apiFetch("/users/" + currentUser.id);
         adminNameInput.value = data.user.name;
         adminEmailInput.value = data.user.email;
+        loadedAdminName = data.user.name;
+        loadedAdminEmail = data.user.email;
         // Phone is not part of the User model yet, so it can't be loaded or
         // saved from here - left as-is (see final report for this limitation).
     } catch (error) {
@@ -41,12 +48,9 @@ settingsForm.addEventListener("submit", async function (event) {
 
     const adminEmail = adminEmailInput.value.trim();
 
-    const adminPhone = document.getElementById("adminPhone").value.trim();
-
     if (
         adminName === "" ||
-        adminEmail === "" ||
-        adminPhone === ""
+        adminEmail === ""
     ) {
 
         alert("Please fill all required fields.");
@@ -102,6 +106,11 @@ settingsForm.addEventListener("submit", async function (event) {
 settingsForm.addEventListener("reset", function () {
 
     setTimeout(function () {
+
+        // Native reset reverts to the hardcoded HTML defaults, not the real
+        // admin profile - restore the actually-loaded values instead.
+        adminNameInput.value = loadedAdminName;
+        adminEmailInput.value = loadedAdminEmail;
 
         alert("Settings Reset Successfully!");
 

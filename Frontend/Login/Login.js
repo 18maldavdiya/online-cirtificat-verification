@@ -55,8 +55,6 @@ form.addEventListener("submit", async function (event) {
         });
 
         CV.setSession(data.token, data.user);
-        console.log("LOGIN RESPONSE:", data);
-console.log("USER ROLE:", data.user.role);
 
         const destination = ROLE_REDIRECTS[data.user.role];
         window.location.href = destination || "../LangingPage/index.html";
